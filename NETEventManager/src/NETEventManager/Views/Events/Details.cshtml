@@ -1,0 +1,13 @@
+﻿@model EventManager.Models.Event
+
+<html>
+<head>
+    <title>Event Manager - Details</title>
+</head>
+<body>
+    <h2>Details</h2>
+    <hr />
+    @Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)
+    <p>@Html.ActionLink("Back to list", "Index")</p>
+</body>
+</html>
