@@ -10,13 +10,13 @@
     @using (Html.BeginForm())
     {
         @Html.LabelFor(model => model.Title)
-        @Html.TextBoxFor(model => model.Title)
+        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
 
         @Html.LabelFor(model => model.Description)
-        @Html.TextBoxFor(model => model.Description)
+        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
 
         @Html.LabelFor(model => model.VenueId)
-        @Html.DropDownList("VenueId")
-        <input type="submit" value="Add new event" />
+        @Html.DropDownList("VenueId" )
+        <input type="submit" value="Add new event" class="btn btn-primary"/>
     }
     <p>@Html.ActionLink("Back to list", "Index")</p>

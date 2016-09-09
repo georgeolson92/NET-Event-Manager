@@ -4,10 +4,8 @@
 }
 @model EventManager.Models.Venue
 
-
-    <h2>Details</h2>
+    <h2>@Html.DisplayFor(model => model.Name)</h2>
     <hr />
-    <p>@Html.DisplayNameFor(model => model.Name): @Html.DisplayFor(model => model.Name)</p>
 
     <h3>Events at this venue:</h3>
     @foreach (var listEvent in Model.Events)

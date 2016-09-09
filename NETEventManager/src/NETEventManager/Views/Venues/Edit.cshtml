@@ -13,7 +13,7 @@
         @Html.HiddenFor(model => model.EventId)
 
         @Html.LabelFor(model => model.Name)
-        @Html.EditorFor(model => model.Name)
+        @Html.EditorFor(model => model.Name, new { @class = "form-control" })
 
 
         <input type="submit" value="Save" />

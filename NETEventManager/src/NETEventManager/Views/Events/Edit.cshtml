@@ -4,24 +4,22 @@
 }
 @model EventManager.Models.Event
 
-    <h2>Edit</h2>
+    <h2>Edit this event: @Html.DisplayFor(model => model.Title)</h2>
     <hr />
-    <h4>Edit this event: @Html.DisplayFor(model => model.Title)</h4>
-
     @using (Html.BeginForm())
     {
         @Html.HiddenFor(model => model.EventId)
 
         @Html.LabelFor(model => model.Title)
-        @Html.EditorFor(model => model.Title)
+        @Html.EditorFor(model => model.Title, new { @class = "form-control" })
 
         @Html.LabelFor(model => model.Description)
-        @Html.EditorFor(model => model.Description)
+        @Html.EditorFor(model => model.Description, new { @class = "form-control" })
 
         @Html.LabelFor(model => model.VenueId)
         @Html.DropDownList("VenueId")
 
-        <input type="submit" value="Save" />
+        <input type="submit" value="Save" class="btn btn-primary"/>
     }
     <p>@Html.ActionLink("Back to list", "Index")</p>
 

@@ -3,14 +3,25 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="~/css/styles.css" />
     <title>@ViewBag.Title</title>
 </head>
 
-<p>@Html.ActionLink("Events", "Index", "Events")</p>
-<p>@Html.ActionLink("Venues", "Index", "Venues")</p>
 <body>
-    <div>
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <span class="navbar-brand">@Html.ActionLink("Event Manager", "Index", "Home")</span>
+            </div>
+            <ul class="nav navbar-nav">
+                <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                <li>@Html.ActionLink("Events", "Index", "Events")</li>
+                <li>@Html.ActionLink("Venues", "Index", "Venues")</li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
         @RenderBody()
     </div>
 </body>
