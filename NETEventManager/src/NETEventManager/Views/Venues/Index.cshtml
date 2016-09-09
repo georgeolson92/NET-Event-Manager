@@ -5,13 +5,13 @@
 
 @model IEnumerable<EventManager.Models.Venue>
 
-    <h2>Venue Manager</h2>
+    <h2>Event Manager</h2>
     <hr />
-    <h4>@Html.DisplayNameFor(model => model.Name)</h4>
+    <h3>Venues</h3>
     <ul>
         @foreach (var listVenue in Model)
         {
             <li>@Html.DisplayFor(modelVenue => listVenue.Name) | @Html.ActionLink("Details", "Details", new { id = listVenue.VenueId }) | @Html.ActionLink("Edit", "Edit", new { id = listVenue.VenueId }) | @Html.ActionLink("Delete", "Delete", new { id = listVenue.VenueId })</li>
         }
     </ul>
-    <p>@Html.ActionLink("Add new item", "Create")</p>
+    <p>@Html.ActionLink("Add new venue", "Create")</p>

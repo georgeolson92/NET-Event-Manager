@@ -7,11 +7,11 @@
 
     <h2>Event Manager</h2>
     <hr />
-    <h4>@Html.DisplayNameFor(model => model.Title)</h4>
+    <h3>Events</h3>
     <ul>
         @foreach (var listEvent in Model)
         {
             <li>@Html.DisplayFor(modelEvent => listEvent.Title) at @Html.DisplayFor(model => listEvent.Venue.Name) | @Html.ActionLink("Details", "Details", new { id = listEvent.EventId }) | @Html.ActionLink("Edit", "Edit", new { id = listEvent.EventId }) | @Html.ActionLink("Delete", "Delete", new { id = listEvent.EventId })</li>
         }
     </ul>
-    <p>@Html.ActionLink("Add new item", "Create")</p>
+    <p>@Html.ActionLink("Add new event", "Create")</p>
