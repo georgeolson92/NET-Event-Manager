@@ -7,7 +7,7 @@
 |:---  | :---  | :----  |
 |It can create a new venue| `"Arlene Schnitzer Concert Hall"`| `"List of venues: Arlene Schnitzer Concert Hall"`|
 |It can create a new event with relationship to venue| `"Glass Animals, Arlene Schnitzer Concert Hall"`| `"List of events: Glass Animals at the Arlene Schnitzer Concert Hall"`|
-|It can display list of events at a venue| `"Arlene Schnitzer Concert Hall" | `"List of events at this venue: Glass Animals"` |
+|It can display list of events at a venue| `"Arlene Schnitzer Concert Hall"` | `"List of events at this venue: Glass Animals"` |
 
 
 ### Setup/Installation Requirements
