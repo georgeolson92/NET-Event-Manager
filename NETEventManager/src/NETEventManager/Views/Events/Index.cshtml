@@ -11,7 +11,7 @@
     <ul>
         @foreach (var listEvent in Model)
         {
-            <li>@Html.DisplayFor(modelEvent => listEvent.Title) | @Html.ActionLink("Details", "Details", new { id = listEvent.EventId }) | @Html.ActionLink("Edit", "Edit", new { id = listEvent.EventId }) | @Html.ActionLink("Delete", "Delete", new { id = listEvent.EventId })</li>
+            <li>@Html.DisplayFor(modelEvent => listEvent.Title) at @Html.DisplayFor(model => listEvent.Venue.Name) | @Html.ActionLink("Details", "Details", new { id = listEvent.EventId }) | @Html.ActionLink("Edit", "Edit", new { id = listEvent.EventId }) | @Html.ActionLink("Delete", "Delete", new { id = listEvent.EventId })</li>
         }
     </ul>
     <p>@Html.ActionLink("Add new item", "Create")</p>

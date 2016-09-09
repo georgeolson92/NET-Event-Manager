@@ -6,43 +6,41 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventManager.Controllers
 {
-    public class EventsController : Controller
+    public class VenuesController : Controller
     {
         private EventManagerContext db = new EventManagerContext();
         public IActionResult Index()
         {
-            return View(db.Events.Include(events => events.Venue).ToList());
+            return View(db.Venues.ToList());
         }
 
         public IActionResult Details(int id)
         {
-            var thisEvent = db.Events.FirstOrDefault(events => events.EventId == id);
-            return View(thisEvent);
+            var thisVenue = db.Venues.FirstOrDefault(events => events.VenueId == id);
+            return View(thisVenue);
         }
 
         public IActionResult Create()
         {
-            ViewBag.VenueId = new SelectList(db.Venues, "VenueId", "Name");
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Event item)
+        public IActionResult Create(Venue item)
         {
-            db.Events.Add(item);
+            db.Venues.Add(item);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         public IActionResult Edit(int id)
         {
-            var thisEvent = db.Events.FirstOrDefault(items => items.EventId == id);
-            ViewBag.VenueId = new SelectList(db.Venues, "VenueId", "Name");
-            return View(thisEvent);
+            var thisVenue = db.Venues.FirstOrDefault(items => items.VenueId == id);
+            return View(thisVenue);
         }
 
         [HttpPost]
-        public IActionResult Edit(Event item)
+        public IActionResult Edit(Venue item)
         {
             db.Entry(item).State = EntityState.Modified;
             db.SaveChanges();
@@ -51,15 +49,15 @@ namespace EventManager.Controllers
 
         public IActionResult Delete(int id)
         {
-            var thisEvent = db.Events.FirstOrDefault(items => items.EventId == id);
-            return View(thisEvent);
+            var thisVenue = db.Venues.FirstOrDefault(items => items.VenueId == id);
+            return View(thisVenue);
         }
 
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var thisEvent = db.Events.FirstOrDefault(items => items.EventId == id);
-            db.Events.Remove(thisEvent);
+            var thisVenue = db.Venues.FirstOrDefault(items => items.VenueId == id);
+            db.Venues.Remove(thisVenue);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

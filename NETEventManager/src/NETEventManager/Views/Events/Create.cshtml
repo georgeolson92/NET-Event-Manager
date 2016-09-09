@@ -14,6 +14,9 @@
 
         @Html.LabelFor(model => model.Description)
         @Html.TextBoxFor(model => model.Description)
+
+        @Html.LabelFor(model => model.VenueId)
+        @Html.DropDownList("VenueId")
         <input type="submit" value="Add new event" />
     }
     <p>@Html.ActionLink("Back to list", "Index")</p>

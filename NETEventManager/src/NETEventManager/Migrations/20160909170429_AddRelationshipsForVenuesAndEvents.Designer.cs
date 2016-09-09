@@ -8,9 +8,10 @@ using EventManager.Models;
 namespace NETEventManager.Migrations
 {
     [DbContext(typeof(EventManagerContext))]
-    partial class EventManagerContextModelSnapshot : ModelSnapshot
+    [Migration("20160909170429_AddRelationshipsForVenuesAndEvents")]
+    partial class AddRelationshipsForVenuesAndEvents
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")

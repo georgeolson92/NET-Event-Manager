@@ -7,6 +7,7 @@ namespace EventManager.Models
     {
         public DbSet<Event> Events { get; set; }
 
+        public DbSet<Venue> Venues { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
