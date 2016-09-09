@@ -7,5 +7,9 @@
     <h2>@Html.DisplayFor(model => model.Title)</h2>
     <h3>at @Html.DisplayFor(model => model.Venue.Name)</h3>
     <hr />
-    <p>@Html.DisplayNameFor(model => model.Venue.Name) : @Html.ActionLink(Model.Venue.Name, "Details", "Venues", new { id = Model.Venue.VenueId })</p>
+    <img src="@Model.ImageURL" class="img-responsive" />
+    <h3>@Html.DisplayNameFor(model => model.Description) :</h3>
+    <p>@Html.DisplayFor(model => model.Description)</p>
+    <h3>Venue :</h3>
+    <p>@Html.ActionLink(Model.Venue.Name, "Details", "Venues", new { id = Model.Venue.VenueId })</p>
     <p>@Html.ActionLink("Edit", "Edit", new { id = Model.EventId }) | @Html.ActionLink("Back to List", "Index")</p>

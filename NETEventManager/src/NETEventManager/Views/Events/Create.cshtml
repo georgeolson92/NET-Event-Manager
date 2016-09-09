@@ -15,6 +15,9 @@
         @Html.LabelFor(model => model.Description)
         @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
 
+        @Html.LabelFor(model => model.ImageURL)
+        @Html.TextBoxFor(model => model.ImageURL, new { @class = "form-control" })
+
         @Html.LabelFor(model => model.VenueId)
         @Html.DropDownList("VenueId" )
         <input type="submit" value="Add new event" class="btn btn-primary"/>
