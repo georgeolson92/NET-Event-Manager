@@ -11,10 +11,10 @@
         @Html.HiddenFor(model => model.EventId)
 
         @Html.LabelFor(model => model.Title)
-        @Html.EditorFor(model => model.Title, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
 
         @Html.LabelFor(model => model.Description)
-        @Html.EditorFor(model => model.Description, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.Description, new { @class = "form-control" })
 
         @Html.LabelFor(model => model.VenueId)
         @Html.DropDownList("VenueId")

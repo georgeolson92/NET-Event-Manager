@@ -10,13 +10,13 @@
 
     @using (Html.BeginForm())
     {
-        @Html.HiddenFor(model => model.EventId)
+        @Html.HiddenFor(model => model.VenueId)
 
         @Html.LabelFor(model => model.Name)
-        @Html.EditorFor(model => model.Name, new { @class = "form-control" })
+        @Html.TextBoxFor(model => model.Name, new { @class = "form-control" })
 
 
-        <input type="submit" value="Save" />
+        <input type="submit" value="Save" class="btn btn-primary"/>
     }
     <p>@Html.ActionLink("Back to list", "Index")</p>
 
