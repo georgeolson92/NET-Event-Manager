@@ -8,5 +8,5 @@
     <h2>Details</h2>
     <hr />
     <p>@Html.DisplayNameFor(model => model.Title): @Html.DisplayFor(model => model.Title)</p>
-    <p>@Html.DisplayNameFor(model => model.VenueId) : @Html.DisplayFor(model => model.VenueId)</p>
+    <p>@Html.DisplayNameFor(model => model.Venue.Name) : @Html.DisplayFor(model => model.Venue.Name)</p>
     <p>@Html.ActionLink("Edit", "Edit", new { id = Model.EventId }) | @Html.ActionLink("Back to List", "Index")</p>

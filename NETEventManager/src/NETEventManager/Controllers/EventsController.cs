@@ -16,7 +16,9 @@ namespace EventManager.Controllers
 
         public IActionResult Details(int id)
         {
-            var thisEvent = db.Events.FirstOrDefault(events => events.EventId == id);
+            var thisEvent = db.Events
+               .Include(events => events.Venue)
+               .FirstOrDefault(experiences => experiences.EventId == id);
             return View(thisEvent);
         }
 
