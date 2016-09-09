@@ -1,17 +1,17 @@
-﻿@model IEnumerable<EventManager.Models.Event>
+﻿@{
+    ViewData["Title"] = "Event Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<html>
-<head>
-    <title>Event Manager</title>
-</head>
-<body>
+@model IEnumerable<EventManager.Models.Event>
+
     <h2>Event Manager</h2>
+    <hr />
     <h4>@Html.DisplayNameFor(model => model.Title)</h4>
     <ul>
         @foreach (var listEvent in Model)
         {
-            <li>@Html.DisplayFor(modelEvent => listEvent.Title) | @Html.ActionLink("Details", "Details", new { id = listEvent.EventId })</li>
+            <li>@Html.DisplayFor(modelEvent => listEvent.Title) | @Html.ActionLink("Details", "Details", new { id = listEvent.EventId }) | @Html.ActionLink("Edit", "Edit", new { id = listEvent.EventId }) | @Html.ActionLink("Delete", "Delete", new { id = listEvent.EventId })</li>
         }
     </ul>
-</body>
-</html>
+    <p>@Html.ActionLink("Add new item", "Create")</p>

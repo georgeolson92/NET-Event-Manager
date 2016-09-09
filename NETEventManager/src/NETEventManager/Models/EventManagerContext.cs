@@ -1,10 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
+
 namespace EventManager.Models
 {
     public class EventManagerContext : DbContext
     {
-        public virtual DbSet<Event> Events { get; set; }
+        public DbSet<Event> Events { get; set; }
+
+
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
