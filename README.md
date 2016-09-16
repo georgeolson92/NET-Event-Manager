@@ -12,7 +12,7 @@
 |It can edit an event| `"initial: Gas Aminals / edit: Glass Animals"`| `"Glass Animals"`|
 |It can create a user account| `"new user email: twentyonepilotsfan@gmail.com, new user password: 21Pilotz!"` | `"New user: twentyonepilotsfan@gmail.com"` |
 |It can restrict access to pages if user is not authorized| `User has not logged in, attempts to view Create page` | `Displays "please log in or register before creating"` |
-|It can add username to created events | `Grouplove, Roseland Theater, twentyonepilotsfan@gmail.com` | `"Grouplove at the Roseland Theater, added by twentyonepilotsfan@gmail.com`|
+|It can add username to created events | `Grouplove, Roseland Theater, twentyonepilotsfan@gmail.com` | `"Grouplove at the Roseland Theater, added by twentyonepilotsfan@gmail.com"`|
 |It can display list of events created by a user| `"twentyonepilotsfan@gmail.com"` | `"Your events: Grouplove at the Roseland Theater"` |
 
 ### Setup/Installation Requirements
@@ -27,7 +27,7 @@
 
 
 ### Known Bugs
-No known bugs in current version.
+Controller tests in test project files are not currently passing due to the nature of the Controller files themselves, will be updated to pass and ensure functionality.
 
 ### Support and Contact Details
 You can reach me via email: **georgeolson92@gmail.com**
