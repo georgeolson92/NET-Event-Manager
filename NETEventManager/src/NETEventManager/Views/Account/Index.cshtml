@@ -18,25 +18,24 @@
         {
             <input type="submit" class="btn btn-info" value="Log out" />
         }
-   
-}
-else
-{
-   @Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn btn-primary" })
-   @Html.ActionLink("Log in", "Login", "Account", null, new { @class = "btn btn-primary" })
-}
 
-<h3>Your Events:</h3>
-@if (Model.Any())
-{
-    <ul>
-        @foreach (var listEvent in Model)
+        <h3>Your Events:</h3>
+        @if (Model.Any())
         {
-            <li>@Html.DisplayFor(modelEvent => listEvent.Title) at @Html.DisplayFor(model => listEvent.Venue.Name) | @Html.ActionLink("Details", "Details", "Events", new { id = listEvent.EventId }) | @Html.ActionLink("Edit", "Edit", "Events", new { id = listEvent.EventId }) | @Html.ActionLink("Delete", "Delete", "Events", new { id = listEvent.EventId })</li>
+            <ul>
+                @foreach (var listEvent in Model)
+                {
+                    <li>@Html.DisplayFor(modelEvent => listEvent.Title) at @Html.DisplayFor(model => listEvent.Venue.Name) | @Html.ActionLink("Details", "Details", "Events", new { id = listEvent.EventId }) | @Html.ActionLink("Edit", "Edit", "Events", new { id = listEvent.EventId }) | @Html.ActionLink("Delete", "Delete", "Events", new { id = listEvent.EventId })</li>
+                }
+            </ul>
         }
-    </ul>
+        else
+        {
+            <p>No tasks have been added yet!</p>
+        }
+
 }
 else
 {
-    <p>No tasks have been added yet!</p>
+    <h3>You must @Html.ActionLink("Log in", "Login") or @Html.ActionLink("Register", "Register") before you can view your account.</h3>
 }

@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventManager.Controllers
 {
+
     public class AccountController : Controller
     {
         private readonly ApplicationDbContext _db;

@@ -1,8 +1,15 @@
-﻿.btn {
-    margin-top: 15px;
-}
+﻿
 
 select {
     float: none;
     display: block;
+}
+
+.navbar .btn {
+    margin-top: 5px;
+}
+
+.username-header {
+    padding-top: 12px;
+    margin-right: 5px;
 }

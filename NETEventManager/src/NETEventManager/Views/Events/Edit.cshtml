@@ -4,6 +4,8 @@
 }
 @model EventManager.Models.Event
 
+@if (User.Identity.IsAuthenticated)
+{
     <h2>Edit this event: @Html.DisplayFor(model => model.Title)</h2>
     <hr />
     @using (Html.BeginForm())
@@ -26,3 +28,8 @@
     }
     <p>@Html.ActionLink("Back to list", "Index")</p>
 
+}
+else
+{
+    <h3>Please @Html.ActionLink("Log in", "Login", "Account") or @Html.ActionLink("Register", "Register", "Account") before editing this event.</h3>
+}
