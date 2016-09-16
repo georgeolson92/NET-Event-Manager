@@ -12,4 +12,12 @@
     <p>@Html.DisplayFor(model => model.Description)</p>
     <h3>Venue :</h3>
     <p>@Html.ActionLink(Model.Venue.Name, "Details", "Venues", new { id = Model.Venue.VenueId })</p>
-    <p>@Html.ActionLink("Edit", "Edit", new { id = Model.EventId }) | @Html.ActionLink("Back to List", "Index")</p>
+
+    <p><em>added by @Model.User.UserName</em></p>
+
+    <p>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <span> @Html.ActionLink("Edit", "Edit", new { id = Model.EventId }) | @Html.ActionLink("Delete", "Delete", new { id = Model.EventId }) |</span>
+        }
+    @Html.ActionLink("Back to List", "Index")</p>

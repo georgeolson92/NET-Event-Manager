@@ -13,4 +13,9 @@
         <li>@Html.ActionLink(listEvent.Title, "Details", "Events", new { id = listEvent.EventId })</li>
     }
 
-    <p>@Html.ActionLink("Edit", "Edit", new { id = Model.VenueId }) | @Html.ActionLink("Back to List", "Index")</p>
+    <p>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <span> @Html.ActionLink("Edit", "Edit", new { id = Model.VenueId }) | @Html.ActionLink("Delete", "Delete", new { id = Model.VenueId }) |</span>
+    }
+    @Html.ActionLink("Back to List", "Index")</p>

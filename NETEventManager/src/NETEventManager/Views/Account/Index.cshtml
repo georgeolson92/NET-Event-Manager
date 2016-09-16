@@ -1,0 +1,42 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model IEnumerable<EventManager.Models.Event>
+
+<h2>Your Account</h2>
+@if (User.Identity.IsAuthenticated)
+{
+
+        <p>Hello, @Html.ActionLink(@User.Identity.Name, "Index", "Account")!</p>
+
+        <p>@Html.ActionLink("Add new event", "Create", "Events", null, new { @class = "btn btn-primary" })</p>
+        <p>@Html.ActionLink("Add new venue", "Create", "Venues", null, new { @class = "btn btn-primary" })</p>
+
+
+        @using (Html.BeginForm("LogOff", "Account"))
+        {
+            <input type="submit" class="btn btn-info" value="Log out" />
+        }
+   
+}
+else
+{
+   @Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn btn-primary" })
+   @Html.ActionLink("Log in", "Login", "Account", null, new { @class = "btn btn-primary" })
+}
+
+<h3>Your Events:</h3>
+@if (Model.Any())
+{
+    <ul>
+        @foreach (var listEvent in Model)
+        {
+            <li>@Html.DisplayFor(modelEvent => listEvent.Title) at @Html.DisplayFor(model => listEvent.Venue.Name) | @Html.ActionLink("Details", "Details", "Events", new { id = listEvent.EventId }) | @Html.ActionLink("Edit", "Edit", "Events", new { id = listEvent.EventId }) | @Html.ActionLink("Delete", "Delete", "Events", new { id = listEvent.EventId })</li>
+        }
+    </ul>
+}
+else
+{
+    <p>No tasks have been added yet!</p>
+}

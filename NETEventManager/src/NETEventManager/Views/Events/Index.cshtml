@@ -2,7 +2,7 @@
     ViewData["Title"] = "Event Manager";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@using System.Security.Claims
 @model IEnumerable<EventManager.Models.Event>
 
     <h2>Events</h2>
@@ -10,7 +10,13 @@
     <ul>
         @foreach (var listEvent in Model)
         {
-            <li>@Html.DisplayFor(modelEvent => listEvent.Title) at @Html.DisplayFor(model => listEvent.Venue.Name) | @Html.ActionLink("Details", "Details", new { id = listEvent.EventId }) | @Html.ActionLink("Edit", "Edit", new { id = listEvent.EventId }) | @Html.ActionLink("Delete", "Delete", new { id = listEvent.EventId })</li>
+            <li>@Html.DisplayFor(modelEvent => listEvent.Title) at @Html.DisplayFor(model => listEvent.Venue.Name) | @Html.ActionLink("Details", "Details", new { id = listEvent.EventId }) 
+            @if (User.Identity.IsAuthenticated)
+            {
+                <span>| @Html.ActionLink("Edit", "Edit", new { id = listEvent.EventId }) | @Html.ActionLink("Delete", "Delete", new { id = listEvent.EventId })</span>
+            }
+         </li>
         }
     </ul>
-    <p>@Html.ActionLink("Add new event", "Create")</p>
+    <p>@Html.ActionLink("Add new event", "Create", null, new { @class = "btn btn-default" })</p>
+

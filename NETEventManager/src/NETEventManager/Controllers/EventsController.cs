@@ -3,66 +3,80 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using EventManager.Models;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
+using System.Threading.Tasks;
 
 namespace EventManager.Controllers
 {
     public class EventsController : Controller
     {
-        private EventManagerContext db = new EventManagerContext();
+        private readonly ApplicationDbContext _db;
+        private readonly UserManager<ApplicationUser> _userManager;
+
+        public EventsController(UserManager<ApplicationUser> userManager, ApplicationDbContext db)
+        {
+            _userManager = userManager;
+            _db = db;
+        }
         public IActionResult Index()
         {
-            return View(db.Events.Include(events => events.Venue).ToList());
+            return View(_db.Events.Include(events => events.Venue).ToList());
         }
 
         public IActionResult Details(int id)
         {
-            var thisEvent = db.Events
+            var thisEvent = _db.Events
                .Include(events => events.Venue)
+               .Include(events => events.User)
                .FirstOrDefault(experiences => experiences.EventId == id);
             return View(thisEvent);
         }
 
         public IActionResult Create()
         {
-            ViewBag.VenueId = new SelectList(db.Venues, "VenueId", "Name");
+            ViewBag.VenueId = new SelectList(_db.Venues, "VenueId", "Name");
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(Event item)
+        public async Task<IActionResult> Create(Event item)
         {
-            db.Events.Add(item);
-            db.SaveChanges();
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.FindByIdAsync(userId);
+            item.User = currentUser;
+            _db.Events.Add(item);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         public IActionResult Edit(int id)
         {
-            var thisEvent = db.Events.FirstOrDefault(items => items.EventId == id);
-            ViewBag.VenueId = new SelectList(db.Venues, "VenueId", "Name");
+            var thisEvent = _db.Events.FirstOrDefault(items => items.EventId == id);
+            ViewBag.VenueId = new SelectList(_db.Venues, "VenueId", "Name");
             return View(thisEvent);
         }
 
         [HttpPost]
         public IActionResult Edit(Event item)
         {
-            db.Entry(item).State = EntityState.Modified;
-            db.SaveChanges();
+            _db.Entry(item).State = EntityState.Modified;
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)
         {
-            var thisEvent = db.Events.FirstOrDefault(items => items.EventId == id);
+            var thisEvent = _db.Events.FirstOrDefault(items => items.EventId == id);
             return View(thisEvent);
         }
 
         [HttpPost, ActionName("Delete")]
         public IActionResult DeleteConfirmed(int id)
         {
-            var thisEvent = db.Events.FirstOrDefault(items => items.EventId == id);
-            db.Events.Remove(thisEvent);
-            db.SaveChanges();
+            var thisEvent = _db.Events.FirstOrDefault(items => items.EventId == id);
+            _db.Events.Remove(thisEvent);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

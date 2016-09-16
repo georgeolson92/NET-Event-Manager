@@ -4,7 +4,9 @@
 }
 @model EventManager.Models.Event
 
-    <h2>Create</h2>
+@if (User.Identity.IsAuthenticated)
+{
+    <h2>Create an Event</h2>
     <hr />
     <h4>Add a new event</h4>
     @using (Html.BeginForm())
@@ -23,3 +25,9 @@
         <input type="submit" value="Add new event" class="btn btn-primary"/>
     }
     <p>@Html.ActionLink("Back to list", "Index")</p>
+
+}
+else
+{
+<h3>Please @Html.ActionLink("Log in", "Login", "Account") or @Html.ActionLink("Register", "Register", "Account") before creating a new Event.</h3>
+}

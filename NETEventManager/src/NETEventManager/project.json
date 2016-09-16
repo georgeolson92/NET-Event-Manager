@@ -16,7 +16,9 @@
     "Microsoft.EntityFrameworkCore.Tools": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+    "Microsoft.EntityFrameworkCore": "1.0.0"
   },
 
   "tools": {

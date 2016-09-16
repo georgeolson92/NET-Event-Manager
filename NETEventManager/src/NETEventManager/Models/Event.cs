@@ -20,5 +20,6 @@ namespace EventManager.Models
         public string ImageURL { get; set; }
         public int VenueId { get; set; }
         public virtual Venue Venue { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -19,7 +21,29 @@
                 <li>@Html.ActionLink("Events", "Index", "Events")</li>
                 <li>@Html.ActionLink("Venues", "Index", "Venues")</li>
             </ul>
+            <p class="login pull-right">
+            @if (User.Identity.IsAuthenticated)
+            {
+
+                    @using (Html.BeginForm("LogOff", "Account"))
+                    {
+                        <input type="submit" class="btn btn-info pull-right" value="Log out" />
+                    }
+
+                <span class="pull-right">Hello, @Html.ActionLink(@User.Identity.Name, "Index", "Account")!</span>
+
+            }
+            else
+            {
+                @Html.ActionLink("Register", "Register", "Account", null, new { @class = "btn btn-default" })
+                @Html.ActionLink("Log in", "Login", "Account", null, new { @class = "btn btn-default" })
+            }
+            </p>
         </div>
+
+        
+
+
     </nav>
     <div class="container">
         @RenderBody()
