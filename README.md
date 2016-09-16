@@ -19,7 +19,7 @@
 
 * Open PowerShell and ensure that C&#35; is installed (<a href="https://www.learnhowtoprogram.com/c/getting-started-with-c/installing-c">View link</a> for information on installing C&#35; in PowerShell)
 * Ensure that Git project management is functioning (<a href="https://www.learnhowtoprogram.com/c/getting-started-with-c/git-project-setup-for-windows">View link</a> for information on setting up Git in PowerShell)
-* Clone repository using "git clone <repository url>.git"
+* Clone repository using "git clone [repository url].git"
 * Go to repository folder, NETEventManager folder, and open the "NETEventManager.sln" file in Visual Studio 2015 (If not already installed please visit <a href="https://www.visualstudio.com/en-us/downloads/download-visual-studio-vs.aspx">this link</a>).
 * In PowerShell, navigate to the src\NETEventManager folder and set up your local database using the command "dotnet ef database update"
 * View project files in the Solution Explorer section of Visual Studio
