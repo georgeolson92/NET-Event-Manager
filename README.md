@@ -8,7 +8,12 @@
 |It can create a new venue| `"Arlene Schnitzer Concert Hall"`| `"List of venues: Arlene Schnitzer Concert Hall"`|
 |It can create a new event with relationship to venue| `"Glass Animals, Arlene Schnitzer Concert Hall"`| `"List of events: Glass Animals at the Arlene Schnitzer Concert Hall"`|
 |It can display list of events at a venue| `"Arlene Schnitzer Concert Hall"` | `"List of events at this venue: Glass Animals"` |
-
+|It can edit a venue| `"initial: Arlene Shnitzer Theater / edit: Arlene Schnitzer Concert Hall"`| `"Arlene Schnitzer Concert Hall"`|
+|It can edit an event| `"initial: Gas Aminals / edit: Glass Animals"`| `"Glass Animals"`|
+|It can create a user account| `"new user email: twentyonepilotsfan@gmail.com, new user password: 21Pilotz!"` | `"New user: twentyonepilotsfan@gmail.com"` |
+|It can restrict access to pages if user is not authorized| `User has not logged in, attempts to view Create page` | `Displays "please log in or register before creating"` |
+|It can add username to created events | `Grouplove, Roseland Theater, twentyonepilotsfan@gmail.com` | `"Grouplove at the Roseland Theater, added by twentyonepilotsfan@gmail.com`|
+|It can display list of events created by a user| `"twentyonepilotsfan@gmail.com"` | `"Your events: Grouplove at the Roseland Theater"` |
 
 ### Setup/Installation Requirements
 
