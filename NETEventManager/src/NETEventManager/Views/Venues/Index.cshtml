@@ -7,7 +7,13 @@
 
 <h2>Venues</h2>
 <hr />
-    <div id="event-list" class="row">
+<form action="DisplayVenuesByKeyword" class="display-venues-by-keyword">
+    <label for="keyWord">Search venues by name:</label>
+    <input type="text" name="keyWord" class="form-control" />
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+
+    <div id="venue-list" class="row">
         <ul>
             @foreach (var listVenue in Model)
             {
@@ -22,3 +28,29 @@
         </ul>
     </div>
 <p>@Html.ActionLink("Add your own venue", "Create", null, new { @class = "btn btn-default" })</p>
+
+<script>
+    $('.display-venues-by-keyword').submit(function (event) {
+        event.preventDefault();
+        console.log($(this).serialize());
+    $.ajax({
+        url: '@Url.Action("DisplayVenuesByKeyword")',
+        type: 'GET',
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function (result) {
+            console.log(result);
+            var stringResult = '<ul>';
+            for (var i = 0; i < result.length; i++) {
+                stringResult += '<li class=" col-md-4"><div class="event"><h3>' + result[i].name + '</h3><img src="' + result[i].imageURL + '" class="img-responsive"/> <a href="/Venues/Details/' + result[i].venueId + '">Details</a></div></li>';
+            }
+            stringResult += '</ul>';
+            if (result.length == 0)
+            {
+                stringResult += '<li class=" col-md-12"><h2>No results</h2></li>';
+            }
+            $('#venue-list').html(stringResult);
+        }
+    });
+});
+</script>

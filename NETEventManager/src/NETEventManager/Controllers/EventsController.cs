@@ -83,7 +83,7 @@ namespace EventManager.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult DisplayByKeyword(string keyWord)
+        public IActionResult DisplayEventsByKeyword(string keyWord)
         {
             var searchEventList = _db.Events.Where(items => items.Title.Contains(keyWord));
             return Json(searchEventList);

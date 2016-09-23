@@ -7,8 +7,8 @@
 
     <h2>Events</h2>
     <hr />
-    <form action="DisplayByKeyword" class="display-by-keyword">
-        <label for="destinationCount">Search events by title:</label>
+    <form action="DisplayEventsByKeyword" class="display-events-by-keyword">
+        <label for="keyWord">Search events by title:</label>
         <input type="text" name="keyWord" class="form-control"/>
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
@@ -31,11 +31,11 @@
 
 
 <script>
-    $('.display-by-keyword').submit(function (event) {
+    $('.display-events-by-keyword').submit(function (event) {
         event.preventDefault();
         console.log($(this).serialize());
     $.ajax({
-        url: '@Url.Action("DisplayByKeyword")',
+        url: '@Url.Action("DisplayEventsByKeyword")',
         type: 'GET',
         data: $(this).serialize(),
         dataType: 'json',

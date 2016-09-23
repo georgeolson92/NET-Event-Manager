@@ -17,6 +17,8 @@ select {
 .event {
     border: 1px solid #eee;
     padding: 15px;
+    height: 385px;
+    margin-bottom: 20px;
 }
 
 .event h3 {
@@ -27,7 +29,9 @@ select {
     padding-left: 0px;
     display:table;
     margin: 20px 0px;
+    width: 100%;
 }
+
 
 #venue-list li, #event-list li {
     list-style-type: none;

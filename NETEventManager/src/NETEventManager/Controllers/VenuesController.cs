@@ -77,5 +77,11 @@ namespace EventManager.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        public IActionResult DisplayVenuesByKeyword(string keyWord)
+        {
+            var searchVenueList = _db.Venues.Where(items => items.Name.Contains(keyWord));
+            return Json(searchVenueList);
+        }
     }
 }
