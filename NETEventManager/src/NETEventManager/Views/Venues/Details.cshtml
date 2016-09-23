@@ -6,12 +6,28 @@
 
     <h2>@Html.DisplayFor(model => model.Name)</h2>
     <hr />
+    <img src="@Model.ImageURL" class="img-responsive" />
+    <p>@Html.DisplayFor(model => model.Description)</p>
 
     <h3>Events at this venue:</h3>
-    @foreach (var listEvent in Model.Events)
-    {
-        <li>@Html.ActionLink(listEvent.Title, "Details", "Events", new { id = listEvent.EventId })</li>
-    }
+    <div id="event-list" class="row">
+    <ul>
+        @foreach (var listEvent in Model.Events)
+            {
+            <li class="col-md-4">
+                <div class="event">
+                    <h3>@Html.DisplayFor(modelEvent => listEvent.Title)</h3>
+                    <img src="@Html.DisplayFor(model => listEvent.ImageURL)" class="img-responsive" />
+                    @Html.ActionLink("Details", "Details", new { id = listEvent.EventId })
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+
+
+
+
 
     <p>
     @if (User.Identity.IsAuthenticated)

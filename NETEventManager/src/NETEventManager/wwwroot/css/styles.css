@@ -13,3 +13,22 @@ select {
     padding-top: 12px;
     margin-right: 5px;
 }
+
+.event {
+    border: 1px solid #eee;
+    padding: 15px;
+}
+
+.event h3 {
+    margin-top: 0px;
+}
+
+#venue-list ul, #event-list ul{
+    padding-left: 0px;
+    display:table;
+    margin: 20px 0px;
+}
+
+#venue-list li, #event-list li {
+    list-style-type: none;
+}

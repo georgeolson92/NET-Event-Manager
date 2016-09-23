@@ -21,5 +21,25 @@ namespace EventManager.Models
         public int VenueId { get; set; }
         public virtual Venue Venue { get; set; }
         public virtual ApplicationUser User { get; set; }
+
+
+        public override bool Equals(System.Object otherEvent)
+        {
+            if (!(otherEvent is Event))
+            {
+                return false;
+            }
+            else
+            {
+                Event newEvent = (Event)otherEvent;
+                return this.EventId.Equals(newEvent.EventId);
+            }
+        }
+
+        public override int GetHashCode()
+        {
+            return this.EventId.GetHashCode();
+        }
     }
+
 }

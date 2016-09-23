@@ -7,16 +7,50 @@
 
     <h2>Events</h2>
     <hr />
-    <ul>
-        @foreach (var listEvent in Model)
-        {
-            <li>@Html.DisplayFor(modelEvent => listEvent.Title) at @Html.DisplayFor(model => listEvent.Venue.Name) | @Html.ActionLink("Details", "Details", new { id = listEvent.EventId }) 
-            @if (User.Identity.IsAuthenticated)
+    <form action="DisplayByKeyword" class="display-by-keyword">
+        <label for="destinationCount">Search events by title:</label>
+        <input type="text" name="keyWord" class="form-control"/>
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+
+    <div id="event-list" class="row">
+        <ul>
+            @foreach (var listEvent in Model)
             {
-                <span>| @Html.ActionLink("Edit", "Edit", new { id = listEvent.EventId }) | @Html.ActionLink("Delete", "Delete", new { id = listEvent.EventId })</span>
+                <li class="col-md-4">
+                    <div class="event">
+                        <h3>@Html.DisplayFor(modelEvent => listEvent.Title)</h3><h4>at @Html.DisplayFor(model => listEvent.Venue.Name)</h4> 
+                        <img src="@Html.DisplayFor(model => listEvent.ImageURL)"  class="img-responsive"/> 
+                        @Html.ActionLink("Details", "Details", new { id = listEvent.EventId })
+                    </div>
+                </li>
             }
-         </li>
-        }
-    </ul>
+        </ul>
+    </div>
     <p>@Html.ActionLink("Add your own event", "Create", null, new { @class = "btn btn-default" })</p>
 
+
+<script>
+    $('.display-by-keyword').submit(function (event) {
+        event.preventDefault();
+        console.log($(this).serialize());
+    $.ajax({
+        url: '@Url.Action("DisplayByKeyword")',
+        type: 'GET',
+        data: $(this).serialize(),
+        dataType: 'json',
+        success: function (result) {
+            var stringResult = '<ul>';
+            for (var i = 0; i < result.length; i++) {
+                stringResult += '<li class=" col-md-4"><div class="event"><h3>' + result[i].title + '</h3><img src="' + result[i].imageURL + '" class="img-responsive"/> <a href="/Events/Details/' + result[i].eventId + '">Details</a></div></li>';
+            }
+            stringResult += '</ul>';
+            if (result.length == 0)
+            {
+                stringResult += '<li class=" col-md-12"><h2>No results</h2></li>';
+            }
+            $('#event-list').html(stringResult);
+        }
+    });
+});
+</script>

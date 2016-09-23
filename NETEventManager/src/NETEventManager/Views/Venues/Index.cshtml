@@ -5,16 +5,20 @@
 @using System.Security.Claims
 @model IEnumerable<EventManager.Models.Venue>
 
-    <h2>Venues</h2>
-    <hr />
-    <ul>
-        @foreach (var listVenue in Model)
-        {
-            <li>@Html.DisplayFor(modelVenue => listVenue.Name) | @Html.ActionLink("Details", "Details", new { id = listVenue.VenueId }) 
-            @if (User.Identity.IsAuthenticated)
+<h2>Venues</h2>
+<hr />
+    <div id="event-list" class="row">
+        <ul>
+            @foreach (var listVenue in Model)
             {
-                <span>| @Html.ActionLink("Edit", "Edit", new { id = listVenue.VenueId }) | @Html.ActionLink("Delete", "Delete", new { id = listVenue.VenueId })</span>
-            }</li>
-        }
-    </ul>
-    <p>@Html.ActionLink("Add your own venue", "Create", null, new { @class = "btn btn-default" })</p>
+                <li class="col-md-4">
+                    <div class="event">
+                        <h3>@Html.DisplayFor(modelVenue => listVenue.Name)</h3>
+                        <img src="@Html.DisplayFor(model => listVenue.ImageURL)" class="img-responsive" />
+                        @Html.ActionLink("Details", "Details", new { id = listVenue.VenueId })
+                    </div>
+                </li>
+            }
+        </ul>
+    </div>
+<p>@Html.ActionLink("Add your own venue", "Create", null, new { @class = "btn btn-default" })</p>

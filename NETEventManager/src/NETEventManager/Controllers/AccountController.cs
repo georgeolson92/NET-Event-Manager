@@ -40,7 +40,8 @@ namespace EventManager.Controllers
         {
             var user = new ApplicationUser { UserName = model.Email };
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);
-            if (result.Succeeded)
+            Microsoft.AspNetCore.Identity.SignInResult signInResult = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
+            if (signInResult.Succeeded)
             {
                 return RedirectToAction("Index");
             }

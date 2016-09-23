@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using System;
 
 namespace EventManager.Controllers
 {
@@ -19,6 +20,8 @@ namespace EventManager.Controllers
             _userManager = userManager;
             _db = db;
         }
+
+
         public IActionResult Index()
         {
             return View(_db.Events.Include(events => events.Venue).ToList());
@@ -78,6 +81,12 @@ namespace EventManager.Controllers
             _db.Events.Remove(thisEvent);
             _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public IActionResult DisplayByKeyword(string keyWord)
+        {
+            var searchEventList = _db.Events.Where(items => items.Title.Contains(keyWord));
+            return Json(searchEventList);
         }
     }
 }
