@@ -37,6 +37,14 @@ select {
     list-style-type: none;
 }
 
+.display-all-events, .display-all-venues {
+    height: 80px;
+}
+
 .display-all-events button {
+    display: none;
+}
+
+.display-all-venues button {
     display: none;
 }

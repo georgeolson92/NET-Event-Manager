@@ -23,6 +23,7 @@ namespace EventManager.Models
         public virtual ApplicationUser User { get; set; }
 
 
+
         public override bool Equals(System.Object otherEvent)
         {
             if (!(otherEvent is Event))
