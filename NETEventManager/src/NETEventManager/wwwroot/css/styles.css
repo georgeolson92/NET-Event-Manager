@@ -48,3 +48,7 @@ select {
 .display-all-venues button {
     display: none;
 }
+
+.alert-success {
+    display: none;
+}

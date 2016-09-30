@@ -93,5 +93,15 @@ namespace EventManager.Controllers
         {
             return Json(_db.Events.ToList());
         }
+
+        public IActionResult SendAlert(string to, string eventName, string venue, string date)
+        {
+            Alert newAlert = new Alert();
+            newAlert.To = to;
+            newAlert.From = "+15038500537";
+            newAlert.Body = "You want to see " + eventName + " at " + venue + "! Add the following date to your mobile calendar: " + date;
+            newAlert.Send();
+            return Json("Success! You will recieve a text message immediately.");
+        }
     }
 }

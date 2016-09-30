@@ -44,6 +44,7 @@ namespace EventManager.Models
         {
             return this.EventId.GetHashCode();
         }
+
     }
 
 }

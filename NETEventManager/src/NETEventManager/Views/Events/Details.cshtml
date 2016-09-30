@@ -14,6 +14,39 @@
     <h3>Venue :</h3>
     <p>@Html.ActionLink(Model.Venue.Name, "Details", "Venues", new { id = Model.Venue.VenueId })</p>
 
+    <h2>Send to your phone!</h2>
+    <p>We will send the event "@Model.Title at @Model.Venue.Name" to your phone so you can add it to your mobile calendar.</p>
+    <form action="SendAlert" class="send-alert">
+        <input name="to" type="text" class="form-control"/>
+        <input name="eventName" type="text" value="@Model.Title" class="hidden" />
+        <input name="venue" type="text" value="@Model.Venue.Name" class="hidden" />
+        <input name="date" type="text" value="@Model.Date" class="hidden" />
+        <input type="submit" class="btn btn-primary" value="Send!" />
+    </form>
+
+    <div class="alert alert-success">
+        <strong id="sent"></strong>
+    </div>
+
+    @Html.ActionLink("Back home", "Index")
+
+    <script>
+       $('.send-alert').submit(function (event) {
+                event.preventDefault();
+                console.log($(this).serialize());
+                $.ajax({
+                    url: '@Url.Action("SendAlert")',
+                    type: 'GET',
+                    data: $(this).serialize(),
+                    dataType: 'json',
+                    success: function (result) {
+                        $(".alert-success").fadeIn();
+                        $('#sent').html(result);
+                    }
+                });
+        });
+    </script>
+
     <p><em>added by @Model.User.UserName</em></p>
 
     <p>

@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Event Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model EventManager.Models.Event
+
+    <h2>Send to your phone!</h2>
+    <p>We will send the event "@Model.Title at @Model.Venue.Name" to your phone so you can add it to your mobile calendar.</p>
+    <hr />
+    <form action="SendAlert" class="send-alert">
+        <input name="to" type="text" />
+        <input name="id" type="text" value="@Model.EventId" class="hidden" />
+        <input type="submit" value="Send!" />
+    </form>
+
+    <p id="sent"></p>
+
+    @Html.ActionLink("Back home", "Index")
+
+    <script>
+        $('.send-alert').submit(function (event) {
+            event.preventDefault();
+            console.log($(this).serialize());
+            $.ajax({
+                url: '@Url.Action("SendAlert")',
+                type: 'GET',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function (result) {
+                    stringResult += 'Sent to your phone!';
+                   
+                    $('#sent').html(stringResult);
+                }
+            });
+    </script>
