@@ -88,5 +88,10 @@ namespace EventManager.Controllers
             var searchEventList = _db.Events.Where(items => items.Title.Contains(keyWord));
             return Json(searchEventList);
         }
+
+        public IActionResult DisplayAllEvents()
+        {
+            return Json(_db.Events.ToList());
+        }
     }
 }

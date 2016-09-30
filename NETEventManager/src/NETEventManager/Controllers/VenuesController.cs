@@ -83,5 +83,10 @@ namespace EventManager.Controllers
             var searchVenueList = _db.Venues.Where(items => items.Name.Contains(keyWord));
             return Json(searchVenueList);
         }
+
+        public IActionResult DisplayAllVenues()
+        {
+            return Json(_db.Venues.ToList());
+        }
     }
 }

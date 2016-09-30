@@ -27,6 +27,7 @@
             }
         </ul>
     </div>
+    <form action="DisplayAllEvents" class="display-all-events"><button type="submit" class="btn btn-primary">View All Events</button></form>
     <p>@Html.ActionLink("Add your own event", "Create", null, new { @class = "btn btn-default" })</p>
 
 
@@ -40,6 +41,7 @@
         data: $(this).serialize(),
         dataType: 'json',
         success: function (result) {
+            $(".display-all-events button").fadeIn();
             var stringResult = '<ul>';
             for (var i = 0; i < result.length; i++) {
                 stringResult += '<li class=" col-md-4"><div class="event"><h3>' + result[i].title + '</h3><img src="' + result[i].imageURL + '" class="img-responsive"/> <a href="/Events/Details/' + result[i].eventId + '">Details</a></div></li>';
@@ -52,5 +54,25 @@
             $('#event-list').html(stringResult);
         }
     });
-});
+    });
+
+    $('.display-all-events').submit(function (event) {
+        event.preventDefault();
+        console.log($(this).serialize());
+        $.ajax({
+            url: '@Url.Action("DisplayAllEvents")',
+            type: 'GET',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (result) {
+                $(".display-all-events button").fadeOut();
+                var stringResult = '<ul>';
+                for (var i = 0; i < result.length; i++) {
+                    stringResult += '<li class=" col-md-4"><div class="event"><h3>' + result[i].title + '</h3><img src="' + result[i].imageURL + '" class="img-responsive"/> <a href="/Events/Details/' + result[i].eventId + '">Details</a></div></li>';
+                }
+                stringResult += '</ul>';
+                $('#event-list').html(stringResult);
+            }
+        });
+    });
 </script>

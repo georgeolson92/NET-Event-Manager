@@ -27,6 +27,7 @@
             }
         </ul>
     </div>
+<form action="DisplayAllVenues" class="display-all-venues"><button type="submit" class="btn btn-primary">View All Venues</button></form>
 <p>@Html.ActionLink("Add your own venue", "Create", null, new { @class = "btn btn-default" })</p>
 
 <script>
@@ -39,6 +40,7 @@
         data: $(this).serialize(),
         dataType: 'json',
         success: function (result) {
+            $(".display-all-venues button").fadeIn();
             console.log(result);
             var stringResult = '<ul>';
             for (var i = 0; i < result.length; i++) {
@@ -52,5 +54,24 @@
             $('#venue-list').html(stringResult);
         }
     });
-});
+    });
+
+    $('.display-all-venues').submit(function (event) {
+        event.preventDefault();
+        console.log($(this).serialize());
+        $.ajax({
+            url: '@Url.Action("DisplayAllVenues")',
+            type: 'GET',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (result) {
+                var stringResult = '<ul>';
+                for (var i = 0; i < result.length; i++) {
+                    stringResult += '<li class=" col-md-4"><div class="event"><h3>' + result[i].name + '</h3><img src="' + result[i].imageURL + '" class="img-responsive"/> <a href="/Venues/Details/' + result[i].venueId + '">Details</a></div></li>';
+                }
+                stringResult += '</ul>';
+                $('#venue-list').html(stringResult);
+            }
+        });
+    });
 </script>

@@ -18,7 +18,7 @@
                 <div class="event">
                     <h3>@Html.DisplayFor(modelEvent => listEvent.Title)</h3>
                     <img src="@Html.DisplayFor(model => listEvent.ImageURL)" class="img-responsive" />
-                    @Html.ActionLink("Details", "Details", new { id = listEvent.EventId })
+                    @Html.ActionLink("Details", "Details", "Events", new { id = listEvent.EventId })
                 </div>
             </li>
         }

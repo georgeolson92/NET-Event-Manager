@@ -36,3 +36,7 @@ select {
 #venue-list li, #event-list li {
     list-style-type: none;
 }
+
+.display-all-events button {
+    display: none;
+}
