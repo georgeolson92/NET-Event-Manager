@@ -23,6 +23,9 @@
         @Html.LabelFor(model => model.VenueId)
         @Html.DropDownList("VenueId" )
 
+        @Html.LabelFor(model => model.Date)
+        @Html.EditorFor(model => model.Date, new { @type = "date" })
+
         <input type="submit" value="Add new event" class="btn btn-primary"/>
     }
     <p>@Html.ActionLink("Back to list", "Index")</p>

@@ -22,6 +22,9 @@ namespace EventManager.Models
         public virtual Venue Venue { get; set; }
         public virtual ApplicationUser User { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime Date { get; set; }
 
 
         public override bool Equals(System.Object otherEvent)
