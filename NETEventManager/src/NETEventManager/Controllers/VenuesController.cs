@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 using System.Security.Claims;
+using EventManager.ViewModels;
 
 namespace EventManager.Controllers
 {
@@ -27,10 +28,13 @@ namespace EventManager.Controllers
         public IActionResult Details(int id)
         {
             var thisVenue = _db.Venues
-                .Include(venues => venues.Events)
-                .Include(venues => venues.User)
+                .Include(venues => venues.Location)
                 .FirstOrDefault(venues => venues.VenueId == id);
-            return View(thisVenue);
+            var venueEvents = _db.Events.Where(items => items.VenueId == id).ToList();
+            VenueViewModel venue = new VenueViewModel();
+            venue.venueEvents = venueEvents;
+            venue.thisVenue = thisVenue;
+            return View(venue);
         }
 
         public IActionResult Create()
@@ -43,7 +47,12 @@ namespace EventManager.Controllers
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var currentUser = await _userManager.FindByIdAsync(userId);
-            item.User = currentUser;
+            item.Location = new Location();
+            item.Location.address = Request.Form["address"];
+            item.Location.city = Request.Form["city"];
+            item.Location.state = Request.Form["state"];
+            item.Location.country = Request.Form["country"];
+            item.Location.postalCode = Request.Form["postalCode"];
             _db.Venues.Add(item);
             _db.SaveChanges();
             return RedirectToAction("Index");
@@ -86,6 +95,21 @@ namespace EventManager.Controllers
 
         public IActionResult DisplayAllVenues()
         {
+            return Json(_db.Venues.ToList());
+        }
+
+        public IActionResult PopulateVenues()
+        {
+            var venueList = Venue.GetVenues();
+            foreach (var venue in venueList)
+            {
+                var thisVenue = _db.Venues.FirstOrDefault(venues => venues.Name == venue.Name);
+                if (thisVenue == null)
+                {
+                    _db.Venues.Add(venue);
+                    _db.SaveChanges();
+                }
+            }
             return Json(_db.Venues.ToList());
         }
     }

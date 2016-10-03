@@ -2,28 +2,56 @@
     ViewData["Title"] = "Event Manager";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model EventManager.Models.Venue
+@model EventManager.ViewModels.VenueViewModel
 
-    <h2>@Html.DisplayFor(model => model.Name)</h2>
+    <h2>@Html.DisplayFor(model => model.thisVenue.Name)</h2>
+
     <hr />
-    <img src="@Model.ImageURL" class="img-responsive" />
-    <p>@Html.DisplayFor(model => model.Description)</p>
+
+    @if (@Model.thisVenue.ImageURL != null)
+    {
+        <img src="@Model.thisVenue.ImageURL"/>
+    }
+    else
+    {
+        <p>No image yet. @Html.ActionLink("Add one now!", "Edit", new { id = Model.thisVenue.VenueId })</p>
+    }
+
+    @if (@Model.thisVenue.Description != null)
+    {
+    <p>@Model.thisVenue.Description</p>
+    }
+    else
+    {
+    <p>No description yet. @Html.ActionLink("Add one now!", "Edit", new { id = Model.thisVenue.VenueId })</p>
+    }
+
+    <p>Address: @Model.thisVenue.Location.address | @Model.thisVenue.Location.city, @Model.thisVenue.Location.state, @Model.thisVenue.Location.country @Model.thisVenue.Location.postalCode </p>
+
 
     <h3>Events at this venue:</h3>
     <div id="event-list" class="row">
-    <ul>
-        @foreach (var listEvent in Model.Events)
+        <ul>
+            @if (Model.venueEvents.Count != 0)
             {
-            <li class="col-md-4">
-                <div class="event">
-                    <h3>@Html.DisplayFor(modelEvent => listEvent.Title)</h3>
-                    <img src="@Html.DisplayFor(model => listEvent.ImageURL)" class="img-responsive" />
-                    @Html.ActionLink("Details", "Details", "Events", new { id = listEvent.EventId })
-                </div>
-            </li>
-        }
-    </ul>
-</div>
+                @foreach (var venueEvent in Model.venueEvents)
+                {
+                    <li class="col-md-4">
+                        <div class="event">
+                            <h3>@venueEvent.Title</h3>
+                            <img src="@venueEvent.ImageURL" class="img-responsive" />
+                            @Html.ActionLink("Details", "Details", "Events", new { id = venueEvent.EventId })
+                        </div>
+                    </li>
+                }
+            }
+            else
+            {
+                <li class="col-md-12">No events for this venue.</li>
+            }
+        </ul>
+    </div>
+
 
 
 
@@ -32,8 +60,9 @@
 
 
     <p>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <span> @Html.ActionLink("Edit", "Edit", new { id = Model.VenueId }) | @Html.ActionLink("Delete", "Delete", new { id = Model.VenueId }) |</span>
-    }
-    @Html.ActionLink("Back to List", "Index")</p>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <span> @Html.ActionLink("Edit", "Edit", new { id = Model.thisVenue.VenueId }) | @Html.ActionLink("Delete", "Delete", new { id = Model.thisVenue.VenueId }) |</span>
+        }
+        @Html.ActionLink("Back to List", "Index")
+    </p>

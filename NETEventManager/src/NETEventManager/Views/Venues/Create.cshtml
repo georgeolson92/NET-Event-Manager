@@ -20,6 +20,30 @@
         @Html.LabelFor(model => model.ImageURL)
         @Html.TextBoxFor(model => model.ImageURL, new { @class = "form-control" })
 
+        <div class="row">
+            <div class="col-md-5">
+                <p>Address:</p>
+                <input name="address" class="form-control" />
+            </div>
+            <div class="col-md-3">
+                <p>City:</p>
+                <input name="city" class="form-control" />
+            </div>
+            <div class="col-md-1">
+                <p>State:</p>
+                <input name="state" class="form-control" />
+            </div>
+            <div class="col-md-2">
+                <p>Country:</p>
+                <input name="country" class="form-control" />
+            </div>
+            <div class="col-md-1">
+                <p>ZIP Code:</p>
+                <input name="postalCode" class="form-control" />
+            </div>
+           </div>
+
+
         <input type="submit" value="Add new venue" class="btn btn-primary"/>
     }
     <p>@Html.ActionLink("Back to list", "Index")</p>

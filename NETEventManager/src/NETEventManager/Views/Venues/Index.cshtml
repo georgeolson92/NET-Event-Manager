@@ -7,20 +7,22 @@
 
 <h2>Venues</h2>
 <hr />
+<div class="alert alert-success">
+    <strong id="alert"></strong>
+</div>
 <form action="DisplayVenuesByKeyword" class="display-venues-by-keyword">
     <label for="keyWord">Search venues by name:</label>
     <input type="text" name="keyWord" class="form-control" />
     <button type="submit" class="btn btn-primary">Search</button>
 </form>
-
+<form action="PopulateVenues" class="populate-venues"><button type="submit" class="btn btn-primary">Populate Venues from FourSquare</button></form>
     <div id="venue-list" class="row">
         <ul>
             @foreach (var listVenue in Model)
             {
                 <li class="col-md-4">
-                    <div class="event">
+                    <div class="venue">
                         <h3>@Html.DisplayFor(modelVenue => listVenue.Name)</h3>
-                        <img src="@Html.DisplayFor(model => listVenue.ImageURL)" class="img-responsive" />
                         @Html.ActionLink("Details", "Details", new { id = listVenue.VenueId })
                     </div>
                 </li>
@@ -44,7 +46,7 @@
             console.log(result);
             var stringResult = '<ul>';
             for (var i = 0; i < result.length; i++) {
-                stringResult += '<li class=" col-md-4"><div class="event"><h3>' + result[i].name + '</h3><img src="' + result[i].imageURL + '" class="img-responsive"/> <a href="/Venues/Details/' + result[i].venueId + '">Details</a></div></li>';
+                stringResult += '<li class=" col-md-4"><div class="venue"><h3>' + result[i].name + '</h3><a href="/Venues/Details/' + result[i].venueId + '">Details</a></div></li>';
             }
             stringResult += '</ul>';
             if (result.length == 0)
@@ -68,11 +70,34 @@
                 $(".display-all-venues button").fadeOut();
                 var stringResult = '<ul>';
                 for (var i = 0; i < result.length; i++) {
-                    stringResult += '<li class=" col-md-4"><div class="event"><h3>' + result[i].name + '</h3><img src="' + result[i].imageURL + '" class="img-responsive"/> <a href="/Venues/Details/' + result[i].venueId + '">Details</a></div></li>';
+                    stringResult += '<li class=" col-md-4"><div class="venue"><h3>' + result[i].name + '</h3><a href="/Venues/Details/' + result[i].venueId + '">Details</a></div></li>';
                 }
                 stringResult += '</ul>';
                 $('#venue-list').html(stringResult);
             }
         });
     });
+
+    $('.populate-venues').submit(function (event) {
+        event.preventDefault();
+        console.log($(this).serialize());
+        $.ajax({
+            url: '@Url.Action("PopulateVenues")',
+            type: 'GET',
+            data: $(this).serialize(),
+            dataType: 'json',
+            success: function (result) {
+                $(".populate-venues button").fadeOut();
+                $('#alert').html("Success!!");
+                var stringResult = '<ul>';
+                for (var i = 0; i < result.length; i++) {
+                    stringResult += '<li class=" col-md-4"><div class="venue"><h3>' + result[i].name + '</h3><a href="/Venues/Details/' + result[i].venueId + '">Details</a></div></li>';
+                }
+                stringResult += '</ul>';
+                $('#venue-list').html(stringResult);
+                $(".alert-success").fadeIn();
+            }
+        });
+    });
+
 </script>
