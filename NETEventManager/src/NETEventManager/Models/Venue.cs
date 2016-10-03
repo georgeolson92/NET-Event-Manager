@@ -22,11 +22,10 @@ namespace EventManager.Models
 
         public virtual Location Location { get; set; }
 
-        public static List<Venue> GetVenues()
+        public static List<Venue> GetVenues(string latitude, string longitude)
         {
-
             var client = new RestClient("https://api.foursquare.com/v2/");
-            var request = new RestRequest("venues/search?categoryId=5032792091d4c4b30a586d5c,4bf58dd8d48988d1e9931735&ll=45.522646,-122.676003&client_id=XTHMGYYKXJIEAQCYGSDRZIW5W3CNSJRES0CDBDHCSUNALGFU&client_secret=ZIZVKXIGNL3UIYOEUKTFICX5JHHQIQJCF4G5NSUWWTH4ZNV5&v=20160926", Method.GET);
+            var request = new RestRequest("venues/search?categoryId=5032792091d4c4b30a586d5c,4bf58dd8d48988d1e9931735&ll=" + latitude + "," + longitude + "&client_id=XTHMGYYKXJIEAQCYGSDRZIW5W3CNSJRES0CDBDHCSUNALGFU&client_secret=ZIZVKXIGNL3UIYOEUKTFICX5JHHQIQJCF4G5NSUWWTH4ZNV5&v=20161003", Method.GET);
             var response = new RestResponse();
             Task.Run(async () =>
             {

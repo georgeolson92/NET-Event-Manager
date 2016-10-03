@@ -98,9 +98,9 @@ namespace EventManager.Controllers
             return Json(_db.Venues.ToList());
         }
 
-        public IActionResult PopulateVenues()
+        public IActionResult PopulateVenues(string latitude, string longitude)
         {
-            var venueList = Venue.GetVenues();
+            var venueList = Venue.GetVenues(latitude, longitude);
             foreach (var venue in venueList)
             {
                 var thisVenue = _db.Venues.FirstOrDefault(venues => venues.Name == venue.Name);
