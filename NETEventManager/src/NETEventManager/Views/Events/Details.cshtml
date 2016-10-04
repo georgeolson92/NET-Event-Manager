@@ -14,48 +14,9 @@
     <p>@Html.DisplayFor(model => model.Description)</p>
     <h3>Venue :</h3>
     <p>@Html.ActionLink(Model.Venue.Name, "Details", "Venues", new { id = Model.Venue.VenueId })</p>
-    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#alertModal">
-        Send to mobile calendar
-    </button>
+
     @Html.ActionLink("Add to google calendar", "AddToGoogleCalendar", new { id = Model.EventId })
     
-
-<div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4 class="modal-title">Send to your phone!</h4>
-            </div>
-            <div class="modal-body">
-                <p>We will send the event "@Model.Title at @Model.Venue.Name" to your phone so you can add it to your mobile calendar.</p>
-                <form action="SendAlert" class="send-alert">
-                    <input name="to" type="text" class="form-control" />
-                    <input name="eventName" type="text" value="@Model.Title" class="hidden" />
-                    <input name="venue" type="text" value="@Model.Venue.Name" class="hidden" />
-                    <input name="date" type="text" value="@Model.Date" class="hidden" />
-                    <input type="submit" class="btn btn-primary" value="Send!" />
-                </form>
-
-                <div class="alert alert-success">
-                    <strong id="sent"></strong>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div><!-- /.modal -->
-
-
-
-
-
-
-
     @Html.ActionLink("Back home", "Index")
 
     <script>
