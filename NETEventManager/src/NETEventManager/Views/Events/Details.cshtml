@@ -7,6 +7,7 @@
     <h2>@Html.DisplayFor(model => model.Title)</h2>
     <h3>at @Html.DisplayFor(model => model.Venue.Name)</h3>
     <p>@Html.DisplayNameFor(model => model.Date): @Html.DisplayFor(model => model.Date)</p>
+    <p>@Html.DisplayNameFor(model => model.Time): @Html.DisplayFor(model => model.Time)</p>
     <hr />
     <img src="@Model.ImageURL" class="img-responsive" />
     <h3>@Html.DisplayNameFor(model => model.Description) :</h3>
@@ -14,8 +15,10 @@
     <h3>Venue :</h3>
     <p>@Html.ActionLink(Model.Venue.Name, "Details", "Venues", new { id = Model.Venue.VenueId })</p>
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#alertModal">
-    Send to mobile calendar
+        Send to mobile calendar
     </button>
+    @Html.ActionLink("Add to google calendar", "AddToGoogleCalendar", new { id = Model.EventId })
+    
 
 <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">

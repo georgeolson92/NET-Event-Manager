@@ -25,6 +25,9 @@
 
         @Html.LabelFor(model => model.Date)
         @Html.EditorFor(model => model.Date, new { @type = "date" })
+   
+        <p>Select a time:</p>
+        <input type="time" name="eventTime" />
 
         <input type="submit" value="Add new event" class="btn btn-primary"/>
     }

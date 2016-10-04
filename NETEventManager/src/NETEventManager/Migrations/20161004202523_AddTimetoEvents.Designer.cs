@@ -8,8 +8,8 @@ using EventManager.Models;
 namespace NETEventManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161003225719_AddLocationToVenues")]
-    partial class AddLocationToVenues
+    [Migration("20161004202523_AddTimetoEvents")]
+    partial class AddTimetoEvents
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -76,6 +76,8 @@ namespace NETEventManager.Migrations
                     b.Property<string>("Description");
 
                     b.Property<string>("ImageURL");
+
+                    b.Property<string>("Time");
 
                     b.Property<string>("Title");
 

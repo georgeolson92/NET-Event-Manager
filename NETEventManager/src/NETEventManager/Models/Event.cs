@@ -25,6 +25,7 @@ namespace EventManager.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
+        public string Time { get; set; }
 
 
         public override bool Equals(System.Object otherEvent)

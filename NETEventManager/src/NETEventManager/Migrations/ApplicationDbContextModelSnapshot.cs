@@ -76,6 +76,8 @@ namespace NETEventManager.Migrations
 
                     b.Property<string>("ImageURL");
 
+                    b.Property<string>("Time");
+
                     b.Property<string>("Title");
 
                     b.Property<string>("UserId");

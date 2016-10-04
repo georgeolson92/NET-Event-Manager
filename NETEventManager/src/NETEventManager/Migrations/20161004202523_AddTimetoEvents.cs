@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace NETEventManager.Migrations
 {
-    public partial class AddLocationToVenues : Migration
+    public partial class AddTimetoEvents : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -53,6 +53,11 @@ namespace NETEventManager.Migrations
                 table: "Venues",
                 nullable: true);
 
+            migrationBuilder.AddColumn<string>(
+                name: "Time",
+                table: "Events",
+                nullable: true);
+
             migrationBuilder.CreateIndex(
                 name: "IX_Venues_LocationId",
                 table: "Venues",
@@ -84,6 +89,10 @@ namespace NETEventManager.Migrations
             migrationBuilder.DropColumn(
                 name: "URL",
                 table: "Venues");
+
+            migrationBuilder.DropColumn(
+                name: "Time",
+                table: "Events");
 
             migrationBuilder.DropTable(
                 name: "Location");

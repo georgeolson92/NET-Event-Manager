@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System;
+using System.Text.RegularExpressions;
 
 namespace EventManager.Controllers
 {
@@ -48,6 +49,7 @@ namespace EventManager.Controllers
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var currentUser = await _userManager.FindByIdAsync(userId);
             item.User = currentUser;
+            item.Time = Request.Form["eventTime"];
             _db.Events.Add(item);
             _db.SaveChanges();
             return RedirectToAction("Index");
@@ -102,6 +104,18 @@ namespace EventManager.Controllers
             newAlert.Body = "You want to see " + eventName + " at " + venue + "! Add the following date to your mobile calendar: " + date;
             newAlert.Send();
             return Json("Success! You will recieve a text message immediately.");
+        }
+
+        public IActionResult AddToGoogleCalendar(int id)
+        {
+            var thisEvent = _db.Events.Include(events => events.Venue).FirstOrDefault(items => items.EventId == id);
+            var calendarDate = thisEvent.Date.ToString("yyyyMMdd");
+            var calendarTime = thisEvent.Time.ToString().Replace(":", "");
+            var convertedTime = Int32.Parse(calendarTime);
+            convertedTime = convertedTime + 600;
+            calendarTime = convertedTime.ToString();
+            var calendarUrl = "https://www.google.com/calendar/render?action=TEMPLATE&text=" + thisEvent.Title + "&dates=" + calendarDate + "T" + calendarTime + "00Z/20180320T201500Z&details=" + thisEvent.Description + "&location=" + thisEvent.Venue.Name + "&sf=true&output=xml";
+            return Redirect(calendarUrl);
         }
     }
 }
