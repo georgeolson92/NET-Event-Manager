@@ -24,14 +24,23 @@
 </form>
     <div id="venue-list" class="row">
         <ul>
-            @foreach (var listVenue in Model)
+            @if (Model.Count() == 0)
             {
-                <li class="col-md-4">
-                    <div class="venue">
-                        <h3>@Html.DisplayFor(modelVenue => listVenue.Name)</h3>
-                        @Html.ActionLink("Details", "Details", new { id = listVenue.VenueId })
-                    </div>
+                <li class="col-md-12">
+                    <h3>No venues yet.</h3>
                 </li>
+            }
+            else
+            {
+                @foreach (var listVenue in Model)
+                {
+                    <li class="col-md-4">
+                        <div class="venue">
+                            <h3>@Html.DisplayFor(modelVenue => listVenue.Name)</h3>
+                            @Html.ActionLink("Details", "Details", new { id = listVenue.VenueId })
+                        </div>
+                    </li>
+                }
             }
         </ul>
     </div>

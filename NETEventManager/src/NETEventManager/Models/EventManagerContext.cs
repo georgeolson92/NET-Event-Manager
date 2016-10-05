@@ -13,6 +13,9 @@ namespace EventManager.Models
         }
         public DbSet<Event> Events { get; set; }
         public DbSet<Venue> Venues { get; set; }
+        public DbSet<RSVP> RSVPs { get; set; }
+        public DbSet<Location> Locations { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

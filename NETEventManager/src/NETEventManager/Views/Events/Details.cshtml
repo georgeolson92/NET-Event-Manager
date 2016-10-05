@@ -2,45 +2,71 @@
     ViewData["Title"] = "Event Manager";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model EventManager.Models.Event
+@model EventManager.ViewModels.EventViewModel
 
-    <h2>@Html.DisplayFor(model => model.Title)</h2>
-    <h3>at @Html.DisplayFor(model => model.Venue.Name)</h3>
-    <p>@Html.DisplayNameFor(model => model.Date): @Html.DisplayFor(model => model.Date)</p>
-    <p>@Html.DisplayNameFor(model => model.Time): @Html.DisplayFor(model => model.Time)</p>
+    <h2>@Html.DisplayFor(model => model.thisEvent.Title)</h2>
+    <h3>at @Html.DisplayFor(model => model.thisEvent.Venue.Name)</h3>
+    <p>@Html.DisplayNameFor(model => model.thisEvent.Date): @Html.DisplayFor(model => model.thisEvent.Date)</p>
+    <p>@Html.DisplayNameFor(model => model.thisEvent.Time): @Html.DisplayFor(model => model.thisEvent.Time)</p>
     <hr />
-    <img src="@Model.ImageURL" class="img-responsive" />
-    <h3>@Html.DisplayNameFor(model => model.Description) :</h3>
-    <p>@Html.DisplayFor(model => model.Description)</p>
-    <h3>Venue :</h3>
-    <p>@Html.ActionLink(Model.Venue.Name, "Details", "Venues", new { id = Model.Venue.VenueId })</p>
+    <form action="Rsvp" class="rsvp">
+        <input name="id" value=@Model.thisEvent.EventId />
+        <button type="submit" class="btn btn-primary">RSVP</button>
+    </form>
+    <p id="rsvped"></p>
 
-    @Html.ActionLink("Add to google calendar", "AddToGoogleCalendar", new { id = Model.EventId })
+    <img src="@Model.thisEvent.ImageURL" class="img-responsive" />
+    <h3>@Html.DisplayNameFor(model => model.thisEvent.Description) :</h3>
+    <p>@Html.DisplayFor(model => model.thisEvent.Description)</p>
+    <h3>Venue</h3>
+    <p>@Html.ActionLink(Model.thisEvent.Venue.Name, "Details", "Venues", new { id = Model.thisEvent.Venue.VenueId })</p>
+
+    @Html.ActionLink("Add to google calendar", "AddToGoogleCalendar", new { id = Model.thisEvent.EventId })
+
+    <h3>@Model.eventRSVPs.Count RSVPs</h3>
+    <ul class="rsvp-icons">
+        @if (Model.eventRSVPs.Count == 0)
+        {
+            <li>No RSVPs</li>
+
+        }
+        else
+        {
+            @foreach (var rsvp in Model.eventRSVPs)
+            {
+                <li>@rsvp.User.UserName</li>
+
+            }
+
+        }
+    </ul>
+
+
     
     @Html.ActionLink("Back home", "Index")
 
     <script>
-       $('.send-alert').submit(function (event) {
+       $('.rsvp').submit(function (event) {
                 event.preventDefault();
                 console.log($(this).serialize());
                 $.ajax({
-                    url: '@Url.Action("SendAlert")',
+                    url: '@Url.Action("RSVP")',
                     type: 'GET',
                     data: $(this).serialize(),
                     dataType: 'json',
                     success: function (result) {
                         $(".alert-success").fadeIn();
-                        $('#sent').html(result);
+                        $('#rsvped').html(result);
                     }
                 });
         });
     </script>
 
-    <p><em>added by @Model.User.UserName</em></p>
+    <p><em>added by @Model.thisEvent.User.UserName</em></p>
 
     <p>
         @if (User.Identity.IsAuthenticated)
         {
-            <span> @Html.ActionLink("Edit", "Edit", new { id = Model.EventId }) | @Html.ActionLink("Delete", "Delete", new { id = Model.EventId }) |</span>
+            <span> @Html.ActionLink("Edit", "Edit", new { id = Model.thisEvent.EventId }) | @Html.ActionLink("Delete", "Delete", new { id = Model.thisEvent.EventId }) |</span>
         }
     @Html.ActionLink("Back to List", "Index")</p>

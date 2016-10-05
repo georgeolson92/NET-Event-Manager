@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using EventManager.Models;
+using EventManager.ViewModels;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
@@ -34,7 +35,11 @@ namespace EventManager.Controllers
                .Include(events => events.Venue)
                .Include(events => events.User)
                .FirstOrDefault(experiences => experiences.EventId == id);
-            return View(thisEvent);
+            var eventRSVPs = _db.RSVPs.Where(rsvps => rsvps.Event.EventId == id).ToList();
+            EventViewModel venue = new EventViewModel();
+            venue.eventRSVPs = eventRSVPs;
+            venue.thisEvent = thisEvent;
+            return View(venue);
         }
 
         public IActionResult Create()
@@ -107,6 +112,17 @@ namespace EventManager.Controllers
             calendarTime = convertedTime.ToString();
             var calendarUrl = "https://www.google.com/calendar/render?action=TEMPLATE&text=" + thisEvent.Title + "&dates=" + calendarDate + "T" + calendarTime + "00Z/20180320T201500Z&details=" + thisEvent.Description + "&location=" + thisEvent.Venue.Name + "&sf=true&output=xml";
             return Redirect(calendarUrl);
+        }
+
+        public async Task<IActionResult> Rsvp(int id)
+        {
+            RSVP thisRSVP = new RSVP();
+            thisRSVP.Event = _db.Events.FirstOrDefault(events => events.EventId == id);
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            thisRSVP.User = await _userManager.FindByIdAsync(userId);
+            _db.RSVPs.Add(thisRSVP);
+            _db.SaveChanges();
+            return Json("Successfully RSVPed! Event id is: " + thisRSVP.Event.EventId);
         }
     }
 }

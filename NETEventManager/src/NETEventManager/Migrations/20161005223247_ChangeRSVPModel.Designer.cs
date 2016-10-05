@@ -8,8 +8,8 @@ using EventManager.Models;
 namespace NETEventManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160930164637_ChangeDateTimeInModel")]
-    partial class ChangeDateTimeInModel
+    [Migration("20161005223247_ChangeRSVPModel")]
+    partial class ChangeRSVPModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -77,6 +77,8 @@ namespace NETEventManager.Migrations
 
                     b.Property<string>("ImageURL");
 
+                    b.Property<string>("Time");
+
                     b.Property<string>("Title");
 
                     b.Property<string>("UserId");
@@ -92,6 +94,54 @@ namespace NETEventManager.Migrations
                     b.ToTable("Events");
                 });
 
+            modelBuilder.Entity("EventManager.Models.Location", b =>
+                {
+                    b.Property<int>("LocationId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("address");
+
+                    b.Property<string>("cc");
+
+                    b.Property<string>("city");
+
+                    b.Property<string>("country");
+
+                    b.Property<string>("crossStreet");
+
+                    b.Property<int>("distance");
+
+                    b.Property<double>("lat");
+
+                    b.Property<double>("lng");
+
+                    b.Property<string>("postalCode");
+
+                    b.Property<string>("state");
+
+                    b.HasKey("LocationId");
+
+                    b.ToTable("Locations");
+                });
+
+            modelBuilder.Entity("EventManager.Models.RSVP", b =>
+                {
+                    b.Property<int>("RSVPId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("EventId");
+
+                    b.Property<string>("UserId");
+
+                    b.HasKey("RSVPId");
+
+                    b.HasIndex("EventId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("RSVPs");
+                });
+
             modelBuilder.Entity("EventManager.Models.Venue", b =>
                 {
                     b.Property<int>("VenueId")
@@ -101,13 +151,15 @@ namespace NETEventManager.Migrations
 
                     b.Property<string>("ImageURL");
 
+                    b.Property<int?>("LocationId");
+
                     b.Property<string>("Name");
 
-                    b.Property<string>("UserId");
+                    b.Property<string>("URL");
 
                     b.HasKey("VenueId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("LocationId");
 
                     b.ToTable("Venues");
                 });
@@ -226,16 +278,27 @@ namespace NETEventManager.Migrations
                         .HasForeignKey("UserId");
 
                     b.HasOne("EventManager.Models.Venue", "Venue")
-                        .WithMany("Events")
+                        .WithMany()
                         .HasForeignKey("VenueId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("EventManager.Models.Venue", b =>
+            modelBuilder.Entity("EventManager.Models.RSVP", b =>
                 {
+                    b.HasOne("EventManager.Models.Event", "Event")
+                        .WithMany()
+                        .HasForeignKey("EventId");
+
                     b.HasOne("EventManager.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("EventManager.Models.Venue", b =>
+                {
+                    b.HasOne("EventManager.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LocationId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.EntityFrameworkCore.IdentityRoleClaim<string>", b =>

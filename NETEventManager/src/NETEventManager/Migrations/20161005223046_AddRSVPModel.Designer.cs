@@ -8,9 +8,10 @@ using EventManager.Models;
 namespace NETEventManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20161005223046_AddRSVPModel")]
+    partial class AddRSVPModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
@@ -128,15 +129,11 @@ namespace NETEventManager.Migrations
                     b.Property<int>("RSVPId")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int?>("EventId");
+                    b.Property<int>("AttendeeId");
 
-                    b.Property<string>("UserId");
+                    b.Property<int>("EventId");
 
                     b.HasKey("RSVPId");
-
-                    b.HasIndex("EventId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("RSVPs");
                 });
@@ -280,17 +277,6 @@ namespace NETEventManager.Migrations
                         .WithMany()
                         .HasForeignKey("VenueId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("EventManager.Models.RSVP", b =>
-                {
-                    b.HasOne("EventManager.Models.Event", "Event")
-                        .WithMany()
-                        .HasForeignKey("EventId");
-
-                    b.HasOne("EventManager.Models.ApplicationUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("EventManager.Models.Venue", b =>

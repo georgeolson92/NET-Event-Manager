@@ -8,8 +8,8 @@ using EventManager.Models;
 namespace NETEventManager.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20161004202523_AddTimetoEvents")]
-    partial class AddTimetoEvents
+    [Migration("20161005222333_FixEventModel")]
+    partial class FixEventModel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -121,7 +121,7 @@ namespace NETEventManager.Migrations
 
                     b.HasKey("LocationId");
 
-                    b.ToTable("Location");
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("EventManager.Models.Venue", b =>

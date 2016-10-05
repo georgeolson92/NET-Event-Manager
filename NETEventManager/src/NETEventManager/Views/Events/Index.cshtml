@@ -15,15 +15,24 @@
 
     <div id="event-list" class="row">
         <ul>
-            @foreach (var listEvent in Model)
+            @if (Model.Count() == 0)
             {
-                <li class="col-md-4">
-                    <div class="event">
-                        <h3>@Html.DisplayFor(modelEvent => listEvent.Title)</h3><h4>at @Html.DisplayFor(model => listEvent.Venue.Name)</h4> 
-                        <img src="@Html.DisplayFor(model => listEvent.ImageURL)"  class="img-responsive"/> 
-                        @Html.ActionLink("Details", "Details", new { id = listEvent.EventId })
-                    </div>
+                <li class="col-md-12">
+                    <h3>No events yet.</h3>
                 </li>
+            }
+            else
+            {
+                @foreach (var listEvent in Model)
+                {
+                    <li class="col-md-4">
+                        <div class="event">
+                            <h3>@Html.DisplayFor(modelEvent => listEvent.Title)</h3><h4>at @Html.DisplayFor(model => listEvent.Venue.Name)</h4> 
+                            <img src="@Html.DisplayFor(model => listEvent.ImageURL)"  class="img-responsive"/> 
+                            @Html.ActionLink("Details", "Details", new { id = listEvent.EventId })
+                        </div>
+                    </li>
+                }
             }
         </ul>
     </div>

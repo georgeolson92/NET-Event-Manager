@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace NETEventManager.Migrations
 {
-    public partial class AddTimetoEvents : Migration
+    public partial class FixEventModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -22,7 +22,7 @@ namespace NETEventManager.Migrations
                 table: "Venues");
 
             migrationBuilder.CreateTable(
-                name: "Location",
+                name: "Locations",
                 columns: table => new
                 {
                     LocationId = table.Column<int>(nullable: false)
@@ -40,7 +40,7 @@ namespace NETEventManager.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Location", x => x.LocationId);
+                    table.PrimaryKey("PK_Locations", x => x.LocationId);
                 });
 
             migrationBuilder.AddColumn<int>(
@@ -63,11 +63,16 @@ namespace NETEventManager.Migrations
                 table: "Venues",
                 column: "LocationId");
 
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "Date",
+                table: "Events",
+                nullable: false);
+
             migrationBuilder.AddForeignKey(
-                name: "FK_Venues_Location_LocationId",
+                name: "FK_Venues_Locations_LocationId",
                 table: "Venues",
                 column: "LocationId",
-                principalTable: "Location",
+                principalTable: "Locations",
                 principalColumn: "LocationId",
                 onDelete: ReferentialAction.Restrict);
         }
@@ -75,7 +80,7 @@ namespace NETEventManager.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropForeignKey(
-                name: "FK_Venues_Location_LocationId",
+                name: "FK_Venues_Locations_LocationId",
                 table: "Venues");
 
             migrationBuilder.DropIndex(
@@ -95,7 +100,7 @@ namespace NETEventManager.Migrations
                 table: "Events");
 
             migrationBuilder.DropTable(
-                name: "Location");
+                name: "Locations");
 
             migrationBuilder.AddColumn<string>(
                 name: "UserId",
@@ -106,6 +111,11 @@ namespace NETEventManager.Migrations
                 name: "IX_Venues_UserId",
                 table: "Venues",
                 column: "UserId");
+
+            migrationBuilder.AlterColumn<DateTime>(
+                name: "Date",
+                table: "Events",
+                nullable: true);
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Venues_AspNetUsers_UserId",
