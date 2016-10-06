@@ -77,3 +77,12 @@ select {
 .rsvp-icons .your-icon {
     border: 2px solid blue;
 }
+
+#eventCarousel {
+    max-height: 400px;
+}
+
+#eventCarousel img {
+    max-height: 400px;
+    margin: 0px auto;
+}

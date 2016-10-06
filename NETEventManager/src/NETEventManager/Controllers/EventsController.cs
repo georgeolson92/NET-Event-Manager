@@ -125,11 +125,13 @@ namespace EventManager.Controllers
         {
             var thisEvent = _db.Events.Include(events => events.Venue).FirstOrDefault(items => items.EventId == id);
             var calendarDate = thisEvent.Date.ToString("yyyyMMdd");
-            var calendarTime = thisEvent.Time.ToString().Replace(":", "");
-            var convertedTime = Int32.Parse(calendarTime);
+            var startTime = thisEvent.Time.ToString().Replace(":", "");
+            var convertedTime = Int32.Parse(startTime);
             convertedTime = convertedTime + 600;
-            calendarTime = convertedTime.ToString();
-            var calendarUrl = "https://www.google.com/calendar/render?action=TEMPLATE&text=" + thisEvent.Title + "&dates=" + calendarDate + "T" + calendarTime + "00Z/20180320T201500Z&details=" + thisEvent.Description + "&location=" + thisEvent.Venue.Name + "&sf=true&output=xml";
+            startTime = convertedTime.ToString();
+            var endConvertedTime = Int32.Parse(startTime) + 300;
+            var endTime = endConvertedTime.ToString();
+            var calendarUrl = "https://www.google.com/calendar/render?action=TEMPLATE&text=" + thisEvent.Title + "&dates=" + calendarDate + "T" + startTime + "00Z/20180320T" + endTime + "00Z&details=" + thisEvent.Description + "&location=" + thisEvent.Venue.Name + "&sf=true&output=xml";
             return Redirect(calendarUrl);
         }
 
