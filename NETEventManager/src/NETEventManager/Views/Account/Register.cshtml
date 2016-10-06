@@ -15,11 +15,20 @@
     @Html.LabelFor(m => m.Email)
     @Html.TextBoxFor(m => m.Email)
 
+    <br />
+
     @Html.LabelFor(m => m.Password)
     @Html.PasswordFor(m => m.Password)
 
+    <br />
+
     @Html.LabelFor(m => m.ConfirmPassword)
     @Html.PasswordFor(m => m.ConfirmPassword)
+
+    <br />
+
+    <label for="avatarURL">Enter an avatar URL:</label>
+    <input name="avatarURL" type="text" />
 
 
     <input type="submit" value="Register" class="btn btn-primary"/>
