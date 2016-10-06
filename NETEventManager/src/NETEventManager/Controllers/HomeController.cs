@@ -25,7 +25,13 @@ namespace EventManager.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View(_db.Events.ToList());
+            var eventsList = _db.Events.ToList();
+            foreach (var listEvent in eventsList)
+            {
+                var substring = listEvent.Description.Substring(0, 190);
+                listEvent.Description = substring + "...";
+            }
+            return View(eventsList);
         }
     }
 }

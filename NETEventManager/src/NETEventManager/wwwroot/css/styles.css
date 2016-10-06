@@ -80,9 +80,11 @@ select {
 
 #eventCarousel {
     max-height: 400px;
+    background-color: #2d2d2d;
 }
 
 #eventCarousel img {
     max-height: 400px;
     margin: 0px auto;
+    opacity: 0.6;
 }
