@@ -11,6 +11,7 @@
 <hr />
 @using (Html.BeginForm("Register", "Account", FormMethod.Post))
 {
+
     @Html.LabelFor(m => m.Email)
     @Html.TextBoxFor(m => m.Email)
 
@@ -20,5 +21,6 @@
     @Html.LabelFor(m => m.ConfirmPassword)
     @Html.PasswordFor(m => m.ConfirmPassword)
 
-    <input type="submit" value="Register" />
+
+    <input type="submit" value="Register" class="btn btn-primary"/>
 }

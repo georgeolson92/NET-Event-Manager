@@ -53,15 +53,27 @@ select {
     display: none;
 }
 
-.rsvp-icons li {
+.rsvp-icons .icon {
     width: 50px;
     height: 50px;
-    border: 1px solid grey;
     float: left;
     list-style-type: none;
+    margin-right: 5px;
+}
+
+.rsvp-icons .full-width {
+    width: 100%;
+    height: 30px;
+    float: none;
+    list-style-type: none;
+    display: table;
 }
 
 .rsvp-icons {
     padding-left: 0px;
     display: table;
+}
+
+.rsvp-icons .your-icon {
+    border: 2px solid blue;
 }

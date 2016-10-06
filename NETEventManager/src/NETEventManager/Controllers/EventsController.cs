@@ -29,17 +29,29 @@ namespace EventManager.Controllers
             return View(_db.Events.Include(events => events.Venue).ToList());
         }
 
-        public IActionResult Details(int id)
+        public async Task<IActionResult> Details(int id)
         {
             var thisEvent = _db.Events
                .Include(events => events.Venue)
                .Include(events => events.User)
-               .FirstOrDefault(experiences => experiences.EventId == id);
-            var eventRSVPs = _db.RSVPs.Where(rsvps => rsvps.Event.EventId == id).ToList();
-            EventViewModel venue = new EventViewModel();
-            venue.eventRSVPs = eventRSVPs;
-            venue.thisEvent = thisEvent;
-            return View(venue);
+               .FirstOrDefault(events => events.EventId == id);
+            var eventRSVPs = _db.RSVPs.Include(rsvps => rsvps.User).Where(rsvps => rsvps.Event.EventId == id).ToList();
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var currentUser = await _userManager.FindByIdAsync(userId);
+            var isRSVPed = false;
+            foreach (var rsvp in eventRSVPs)
+            {
+                if (rsvp.User.Id == currentUser.Id)
+                {
+                    isRSVPed = true;
+                }
+            }
+            EventViewModel viewEvent = new EventViewModel();
+            viewEvent.eventRSVPs = eventRSVPs;
+            viewEvent.thisEvent = thisEvent;
+            viewEvent.currentUser = currentUser;
+            viewEvent.viewerIsRSVPed = isRSVPed;
+            return View(viewEvent);
         }
 
         public IActionResult Create()
@@ -122,7 +134,16 @@ namespace EventManager.Controllers
             thisRSVP.User = await _userManager.FindByIdAsync(userId);
             _db.RSVPs.Add(thisRSVP);
             _db.SaveChanges();
-            return Json("Successfully RSVPed! Event id is: " + thisRSVP.Event.EventId);
+            return Json("Successfully RSVPed!");
+        }
+
+        public async Task<IActionResult> CancelRsvp(int id)
+        {
+            var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var thisRSVP = _db.RSVPs.FirstOrDefault(rsvps => rsvps.Event.EventId == id && rsvps.User.Id == userId);
+            _db.RSVPs.Remove(thisRSVP);
+            _db.SaveChanges();
+            return Json("Cancelled RSVP.");
         }
     }
 }

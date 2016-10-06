@@ -39,6 +39,7 @@ namespace EventManager.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
             var user = new ApplicationUser { UserName = model.Email };
+            user.AvatarURL = "http://www.adweek.com/socialtimes/files/2012/03/twitter-egg-icon.jpg";
             IdentityResult result = await _userManager.CreateAsync(user, model.Password);
             Microsoft.AspNetCore.Identity.SignInResult signInResult = await _signInManager.PasswordSignInAsync(model.Email, model.Password, isPersistent: true, lockoutOnFailure: false);
             if (signInResult.Succeeded)

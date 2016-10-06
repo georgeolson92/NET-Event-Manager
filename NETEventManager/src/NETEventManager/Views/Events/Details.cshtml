@@ -8,42 +8,91 @@
     <h3>at @Html.DisplayFor(model => model.thisEvent.Venue.Name)</h3>
     <p>@Html.DisplayNameFor(model => model.thisEvent.Date): @Html.DisplayFor(model => model.thisEvent.Date)</p>
     <p>@Html.DisplayNameFor(model => model.thisEvent.Time): @Html.DisplayFor(model => model.thisEvent.Time)</p>
-    <hr />
-    <form action="Rsvp" class="rsvp">
-        <input name="id" value=@Model.thisEvent.EventId />
-        <button type="submit" class="btn btn-primary">RSVP</button>
-    </form>
-    <p id="rsvped"></p>
+    @Html.ActionLink("Add to google calendar", "AddToGoogleCalendar", new { id = Model.thisEvent.EventId }, new { @class = "btn btn-primary" })
+
 
     <img src="@Model.thisEvent.ImageURL" class="img-responsive" />
-    <h3>@Html.DisplayNameFor(model => model.thisEvent.Description) :</h3>
+    <h3>@Html.DisplayNameFor(model => model.thisEvent.Description)</h3>
     <p>@Html.DisplayFor(model => model.thisEvent.Description)</p>
     <h3>Venue</h3>
-    <p>@Html.ActionLink(Model.thisEvent.Venue.Name, "Details", "Venues", new { id = Model.thisEvent.Venue.VenueId })</p>
-
-    @Html.ActionLink("Add to google calendar", "AddToGoogleCalendar", new { id = Model.thisEvent.EventId })
+    <h4>@Html.ActionLink(Model.thisEvent.Venue.Name, "Details", "Venues", new { id = Model.thisEvent.Venue.VenueId })</h4>
+    
+    <p><em>Event added by @Model.thisEvent.User.UserName</em></p>
+    <hr />
 
     <h3>@Model.eventRSVPs.Count RSVPs</h3>
     <ul class="rsvp-icons">
         @if (Model.eventRSVPs.Count == 0)
         {
-            <li>No RSVPs</li>
+            <li class="full-width">No RSVPs</li>
 
         }
         else
         {
+            @if (Model.viewerIsRSVPed == true)
+                {
+                <li class="full-width">
+                    You RSVPed.
+                </li>
+                <li class="icon your-icon">
+                    <img src=@Model.currentUser.AvatarURL class="img-responsive" alt=@Model.currentUser.UserName title=@Model.currentUser.UserName />
+                </li>
+            }
+
             @foreach (var rsvp in Model.eventRSVPs)
             {
-                <li>@rsvp.User.UserName</li>
+                @if (rsvp.User.Id != Model.currentUser.Id)
+                {
+                    <li class="icon">
+                        <img src=@rsvp.User.AvatarURL class="img-responsive" alt=@rsvp.User.UserName title=@rsvp.User.UserName />
+                    </li>
+                }
+
 
             }
 
         }
     </ul>
 
+    @if (User.Identity.IsAuthenticated)
+    {
+        @if (Model.viewerIsRSVPed == true)
+        {
+            <form action="CancelRsvp" class="cancel-rsvp">
+                <input name="id" value=@Model.thisEvent.EventId class="hidden" />
+                <button type="submit" class="btn btn-danger">Cancel RSVP</button>
+            </form>
+        }
+        else
+        {
+            <form action="Rsvp" class="rsvp">
+                <input name="id" value=@Model.thisEvent.EventId class="hidden" />
+                <button type="submit" class="btn btn-primary">RSVP</button>
+            </form>
+        }
+
+        <p id="rsvped"></p>
+    }
+
+    <hr/>
+
+
+
+
+
 
     
     @Html.ActionLink("Back home", "Index")
+
+    <p>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <span> @Html.ActionLink("Edit", "Edit", new { id = Model.thisEvent.EventId }) | @Html.ActionLink("Delete", "Delete", new { id = Model.thisEvent.EventId }) |</span>
+        }
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+
 
     <script>
        $('.rsvp').submit(function (event) {
@@ -59,14 +108,22 @@
                         $('#rsvped').html(result);
                     }
                 });
+       });
+
+        $('.cancel-rsvp').submit(function (event) {
+            event.preventDefault();
+            console.log($(this).serialize());
+            $.ajax({
+                url: '@Url.Action("CancelRSVP")',
+                type: 'GET',
+                data: $(this).serialize(),
+                dataType: 'json',
+                success: function (result) {
+                    $(".alert-success").fadeIn();
+                    $('#rsvped').html(result);
+                }
+            });
         });
     </script>
 
-    <p><em>added by @Model.thisEvent.User.UserName</em></p>
-
-    <p>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <span> @Html.ActionLink("Edit", "Edit", new { id = Model.thisEvent.EventId }) | @Html.ActionLink("Delete", "Delete", new { id = Model.thisEvent.EventId }) |</span>
-        }
-    @Html.ActionLink("Back to List", "Index")</p>
+    

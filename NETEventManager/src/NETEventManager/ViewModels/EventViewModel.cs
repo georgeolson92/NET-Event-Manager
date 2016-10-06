@@ -11,5 +11,9 @@ namespace EventManager.ViewModels
         public List<RSVP> eventRSVPs { get; set; }
 
         public Event thisEvent { get; set; }
+
+        public ApplicationUser currentUser { get; set; }
+
+        public bool viewerIsRSVPed { get; set; }
     }
 }
