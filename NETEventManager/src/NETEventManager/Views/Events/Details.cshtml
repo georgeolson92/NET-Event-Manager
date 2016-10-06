@@ -20,7 +20,7 @@
     <p><em>Event added by @Model.thisEvent.User.UserName</em></p>
     <hr />
 
-    <h3>@Model.eventRSVPs.Count RSVPs</h3>
+    <h3><span id="rsvp-count">@Model.eventRSVPs.Count</span> RSVPs</h3>
     <ul class="rsvp-icons">
         @if (Model.eventRSVPs.Count == 0)
         {
@@ -31,7 +31,7 @@
         {
             @if (Model.viewerIsRSVPed == true)
                 {
-                <li class="full-width">
+                <li class="full-width rsvp-status">
                     You RSVPed.
                 </li>
                 <li class="icon your-icon">
@@ -83,7 +83,7 @@
             </form>
         }
 
-        <p id="rsvped"></p>
+        <p id="rsvped" class="alert alert-success"></p>
     }
     else
     {
@@ -121,6 +121,9 @@
                     data: $(this).serialize(),
                     dataType: 'json',
                     success: function (result) {
+                        $('.rsvp').fadeOut();
+                        $('#rsvp-count').html(@Model.eventRSVPs.Count +1)
+                        $('.rsvp-icons').prepend("<li class='icon your-icon'><img src='@Model.currentUser.AvatarURL' class='img-responsive' alt='@Model.currentUser.UserName' title='@Model.currentUser.UserName' /></li>");
                         $(".alert-success").fadeIn();
                         $('#rsvped').html(result);
                     }
@@ -136,6 +139,10 @@
                 data: $(this).serialize(),
                 dataType: 'json',
                 success: function (result) {
+                    $('#rsvp-count').html(@Model.eventRSVPs.Count -1)
+                    $('.cancel-rsvp').fadeOut();
+                    $('.rsvp-status').fadeOut();
+                    $('.your-icon').fadeOut();
                     $(".alert-success").fadeIn();
                     $('#rsvped').html(result);
                 }
