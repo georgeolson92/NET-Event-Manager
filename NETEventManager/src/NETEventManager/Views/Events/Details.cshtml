@@ -39,17 +39,29 @@
                 </li>
             }
 
-            @foreach (var rsvp in Model.eventRSVPs)
+            @if (User.Identity.IsAuthenticated)
             {
-                @if (rsvp.User.Id != Model.currentUser.Id)
+                @foreach (var rsvp in Model.eventRSVPs)
+                {
+                    @if (rsvp.User.Id != Model.currentUser.Id)
+                    {
+                        <li class="icon">
+                            <img src=@rsvp.User.AvatarURL class="img-responsive" alt=@rsvp.User.UserName title=@rsvp.User.UserName />
+                        </li>
+                    }
+                }
+            }
+            else
+            {
+                @foreach (var rsvp in Model.eventRSVPs)
                 {
                     <li class="icon">
                         <img src=@rsvp.User.AvatarURL class="img-responsive" alt=@rsvp.User.UserName title=@rsvp.User.UserName />
                     </li>
                 }
 
-
             }
+
 
         }
     </ul>
@@ -72,6 +84,11 @@
         }
 
         <p id="rsvped"></p>
+    }
+    else
+    {
+        <p>Please @Html.ActionLink("Log in", "Login", "Account") or @Html.ActionLink("Register", "Register", "Account") to RSVP to this event.</p>
+
     }
 
     <hr/>

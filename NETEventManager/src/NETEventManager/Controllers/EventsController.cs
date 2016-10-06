@@ -39,11 +39,18 @@ namespace EventManager.Controllers
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var currentUser = await _userManager.FindByIdAsync(userId);
             var isRSVPed = false;
-            foreach (var rsvp in eventRSVPs)
+            if (currentUser == null)
             {
-                if (rsvp.User.Id == currentUser.Id)
+                isRSVPed = false;
+            }
+            else
+            { 
+                foreach (var rsvp in eventRSVPs)
                 {
-                    isRSVPed = true;
+                    if (rsvp.User.Id == currentUser.Id)
+                    {
+                        isRSVPed = true;
+                    }
                 }
             }
             EventViewModel viewEvent = new EventViewModel();
