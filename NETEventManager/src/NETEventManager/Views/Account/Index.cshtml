@@ -2,7 +2,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@model IEnumerable<EventManager.Models.Event>
+@model EventManager.ViewModels.AccountViewModel
 
 <h2>Your Account</h2>
 @if (User.Identity.IsAuthenticated)
@@ -20,10 +20,10 @@
         }
 
         <h3>Your Added Events:</h3>
-        @if (Model.Any())
+        @if (Model.userEvents.Any())
         {
             <ul>
-                @foreach (var listEvent in Model)
+                @foreach (var listEvent in Model.userEvents)
                 {
                     <li>@Html.DisplayFor(modelEvent => listEvent.Title) at @Html.DisplayFor(model => listEvent.Venue.Name) | @Html.ActionLink("Details", "Details", "Events", new { id = listEvent.EventId }) | @Html.ActionLink("Edit", "Edit", "Events", new { id = listEvent.EventId }) | @Html.ActionLink("Delete", "Delete", "Events", new { id = listEvent.EventId })</li>
                 }
@@ -35,6 +35,19 @@
         }
 
     <h3>Your Event Calendar:</h3>
+    @if (Model.eventRSVPs.Any())
+    {
+        <ul>
+            @foreach (var listRSVP in Model.eventRSVPs)
+            {
+                <li>@Html.DisplayFor(modelEvent => listRSVP.Event.Title) / @Html.DisplayFor(model => listRSVP.Event.Date) | @Html.ActionLink("Details", "Details", "Events", new { id = listRSVP.Event.EventId })</li>
+            }
+        </ul>
+    }
+    else
+    {
+        <p>You have not RSVPed to any events yet!</p>
+    }
 
 }
 else

@@ -27,7 +27,13 @@ namespace EventManager.Controllers
         {
             var userId = this.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             var currentUser = await _userManager.FindByIdAsync(userId);
-            return View(_db.Events.Where(x => x.User.Id == currentUser.Id).Include(events => events.Venue));
+            var userEvents = _db.Events.Where(x => x.User.Id == currentUser.Id).ToList();
+            var eventRSVPs = _db.RSVPs.Include(rsvps => rsvps.Event).Where(rsvps => rsvps.User.Id == userId).ToList();
+            AccountViewModel viewAccount = new AccountViewModel();
+            viewAccount.eventRSVPs = eventRSVPs;
+            viewAccount.userEvents = userEvents;
+            viewAccount.currentUser = currentUser;
+            return View(viewAccount);
         }
 
         public IActionResult Register()
