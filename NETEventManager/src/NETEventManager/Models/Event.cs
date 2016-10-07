@@ -23,7 +23,7 @@ namespace EventManager.Models
         public virtual ApplicationUser User { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:MMMM dd, yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }
         public string Time { get; set; }
 

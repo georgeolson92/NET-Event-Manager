@@ -27,6 +27,9 @@
         @Html.LabelFor(model => model.Date)
         @Html.EditorFor(model => model.Date, new { @type = "date" })
 
+        <p>Select a time:</p>
+        <input type="time" name="eventTime" value=@Model.Time/>
+
         <input type="submit" value="Save" class="btn btn-primary"/>
     }
     <p>@Html.ActionLink("Back to list", "Index")</p>

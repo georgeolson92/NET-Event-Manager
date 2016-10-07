@@ -104,6 +104,11 @@ namespace EventManager.Controllers
         public IActionResult DeleteConfirmed(int id)
         {
             var thisEvent = _db.Events.FirstOrDefault(items => items.EventId == id);
+            var eventRSVPs = _db.RSVPs.Include(rsvps => rsvps.User).Where(rsvps => rsvps.Event.EventId == id).ToList();
+            foreach (var rsvp in eventRSVPs)
+            {
+              _db.RSVPs.Remove(rsvp);
+            }
             _db.Events.Remove(thisEvent);
             _db.SaveChanges();
             return RedirectToAction("Index");

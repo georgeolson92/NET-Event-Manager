@@ -24,7 +24,7 @@
     <ul class="rsvp-icons">
         @if (Model.eventRSVPs.Count == 0)
         {
-            <li class="full-width">No RSVPs</li>
+            <li class="full-width rsvp-status">No RSVPs</li>
 
         }
         else
@@ -110,7 +110,8 @@
     </p>
 
 
-
+    @if (User.Identity.IsAuthenticated)
+    {
     <script>
        $('.rsvp').submit(function (event) {
                 event.preventDefault();
@@ -123,6 +124,7 @@
                     success: function (result) {
                         $('.rsvp').fadeOut();
                         $('#rsvp-count').html(@Model.eventRSVPs.Count +1)
+                        $('.rsvp-status').fadeOut();
                         $('.rsvp-icons').prepend("<li class='icon your-icon'><img src='@Model.currentUser.AvatarURL' class='img-responsive' alt='@Model.currentUser.UserName' title='@Model.currentUser.UserName' /></li>");
                         $(".alert-success").fadeIn();
                         $('#rsvped').html(result);
@@ -150,4 +152,4 @@
         });
     </script>
 
-    
+    }

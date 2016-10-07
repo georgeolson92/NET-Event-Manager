@@ -17,7 +17,7 @@
                 <div class="item active">
                     <img src=@listEvent.ImageURL alt=@listEvent.Title>
                     <div class="carousel-caption">
-                        <h2>@listEvent.Title</h2>
+                        <h2>@listEvent.Title<br /> @Html.DisplayFor(model => listEvent.Date)</h2>
                         <p>@listEvent.Description</p>
                         <p>@Html.ActionLink("Details", "Details", "Events", new { id = listEvent.EventId }, new { @class = "btn btn-primary" })</p>
                     </div>
@@ -28,7 +28,7 @@
                 <div class="item">
                     <img src=@listEvent.ImageURL alt=@listEvent.Title>
                     <div class="carousel-caption">
-                        <h2>@listEvent.Title</h2>
+                        <h2>@listEvent.Title<br /> @Html.DisplayFor(model => listEvent.Date)</h2>
                         <p>@listEvent.Description</p>
                         <p>@Html.ActionLink("Details", "Details", "Events", new { id = listEvent.EventId }, new { @class = "btn btn-primary" })</p>
                     </div>
