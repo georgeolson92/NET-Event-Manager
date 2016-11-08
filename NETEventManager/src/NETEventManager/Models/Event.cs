@@ -27,6 +27,8 @@ namespace EventManager.Models
         public DateTime Date { get; set; }
         public string Time { get; set; }
 
+        public string TicketURL { get; set; }
+
 
         public override bool Equals(System.Object otherEvent)
         {

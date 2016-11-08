@@ -28,8 +28,11 @@ namespace EventManager.Controllers
             var eventsList = _db.Events.ToList();
             foreach (var listEvent in eventsList)
             {
-                var substring = listEvent.Description.Substring(0, 190);
-                listEvent.Description = substring + "...";
+                if (listEvent.Description.Length >= 190)
+                {
+                    var substring = listEvent.Description.Substring(0, 190);
+                    listEvent.Description = substring + "...";
+                }
             }
             return View(eventsList);
         }

@@ -31,7 +31,7 @@
                             <h4>at @Html.DisplayFor(model => listEvent.Venue.Name)</h4> 
                             <h5>@Html.DisplayFor(model => listEvent.Date)</h5>
                             <img src="@Html.DisplayFor(model => listEvent.ImageURL)"  class="img-responsive"/> 
-                            @Html.ActionLink("Details", "Details", new { id = listEvent.EventId })
+                            @Html.ActionLink("Details", "Details", new { id = listEvent.EventId }, new { @class = "btn btn-default pull-right" })
                         </div>
                     </li>
                 }
@@ -79,7 +79,7 @@
                 $(".display-all-events button").fadeOut();
                 var stringResult = '<ul>';
                 for (var i = 0; i < result.length; i++) {
-                    stringResult += '<li class=" col-md-4"><div class="event"><h3>' + result[i].title + '</h3><h5>' + result[i].date + '</h5><img src="' + result[i].imageURL + '" class="img-responsive"/> <a href="/Events/Details/' + result[i].eventId + '">Details</a></div></li>';
+                    stringResult += '<li class=" col-md-4"><div class="event"><h3>' + result[i].title + '</h3><img src="' + result[i].imageURL + '" class="img-responsive"/> <a href="/Events/Details/' + result[i].eventId + '">Details</a></div></li>';
                 }
                 stringResult += '</ul>';
                 $('#event-list').html(stringResult);

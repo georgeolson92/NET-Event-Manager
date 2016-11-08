@@ -23,11 +23,20 @@
         @Html.LabelFor(model => model.VenueId)
         @Html.DropDownList("VenueId" )
 
+        <hr />
+
         @Html.LabelFor(model => model.Date)
         @Html.EditorFor(model => model.Date, new { @type = "date" })
    
         <p>Select a time:</p>
         <input type="time" name="eventTime" />
+
+        <hr/>
+
+        @Html.LabelFor(model => model.TicketURL)
+        @Html.TextBoxFor(model => Model.TicketURL, new { @class = "form-control" })
+
+        <hr />
 
         <input type="submit" value="Add new event" class="btn btn-primary"/>
     }
