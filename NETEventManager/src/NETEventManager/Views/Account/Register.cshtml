@@ -13,23 +13,23 @@
 {
 
     @Html.LabelFor(m => m.Email)
-    @Html.TextBoxFor(m => m.Email)
+    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
 
     <br />
 
     @Html.LabelFor(m => m.Password)
-    @Html.PasswordFor(m => m.Password)
+    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
 
     <br />
 
     @Html.LabelFor(m => m.ConfirmPassword)
-    @Html.PasswordFor(m => m.ConfirmPassword)
+    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
 
     <br />
 
     <label for="avatarURL">Enter an avatar URL:</label>
-    <input name="avatarURL" type="text" />
+    <input name="avatarURL" type="text" class="form-control"/>
 
 
-    <input type="submit" value="Register" class="btn btn-primary"/>
+    <input type="submit" value="Register" class="btn btn-primary btn-register"/>
 }
